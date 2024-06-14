@@ -1,19 +1,148 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ asset('img/images_the_disctrict/the_district_brand/favicon.png') }}" />
+    
+    {% block stylesheets %}
+    {% endblock %}
+    
+    {{ encore_entry_link_tags('app') }}
+        <style>
+            a {
+	text-decoration: none;
+}
+.image-reduite {
+    width:125px;
+    /* Largeur souhaitée */
+    height:125px;
+    /* Hauteur souhaitée */
+}
 
-        {% block javascripts %}
+.logo-gauche {
+    margin-left: 0;
+}
+
+.navbar-custom {
+    min-height: 40px; /* Hauteur personnalisée pour la navbar */
+}
+
+.navbar-center {
+    display: flex;
+    justify-content: center;
+}
+</style>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+        {# {{ encore_entry_script_tags('app') }} #}
+    {% endblock %}
+</head>
+<body>
+    <nav class="logo-gauche navbar navbar-expand-lg navbar-light bg-light navbar-custom ">
+        <!-- Logo -->
+        <a class="navbar-brand ml-left ml-lg-0" href="{{ path('app_home') }}">
+            <img class="image-reduite" src="{{ asset('img/logo.png') }}" alt="Logo">
+        </a>
+        <div class="container">
+            <!-- Bouton d'ouverture du menu (pour les écrans plus petits) -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Liens de navigation -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-center align-item-center align-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href=style="color: #000000">Commande</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href= style="color: #000000">Produits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href= style="color: #000000">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href= style="color: #000000">Contact</a>
+                    </li>
+                      <!-- Lien spécifique au rôle "Chef" -->
+                {% if is_granted('ROLE_CHEF') %}
+                <li class="nav-item pe-4">
+                    <a class="btn btn-order rounded-0 {% if is_granted('ROLE_CHEF') %}active{% endif %}" href="{{ path('Role_dashboard') }}" style="color: #000000">Chef</a>
+                </li>
+            {% endif %}
+                </ul>
+            </div>
+            <!-- Bouton de connexion/déconnexion -->
+        </div>   
+        <div class="ml-auto">
+            {% if app.user %}
+                <a href= class="btn btn-primary">Déconnexion</a>
+            {% else %}
+                <a href= class="btn btn-primary">Connexion</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+<br><br>
+    <!-- Footer -->
+    <div class="placers d-flex  justify-content-center align-items-center flex-wrap" style=" position:absolute; bottom:10;
+    width: 100%; color:white;">
+        <!-- Réseaux sociaux -->
+        <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-instagram fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-pinterest fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-twitter fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-linkedin fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-facebook fa-bounce"
+                    style="color: #000000;font-size:75px"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-youtube fa-bounce"
+                    style="color: #000000;font-size:75px"></i></a>
+        </div>
+
+        <!-- Flèche pour remonter en haut -->
+        <nav style="color: transparent;">
+            <div class="d-flex justify-content-right align-items-center">
+                <a id="arrow-up" class="me-auto ms-5 justify-content-end">
+                    <i class="fa-solid fa-arrow-up fa-beat fa-2xl "
+                        style="color: #000000;font-size: 50px; left:0px;"></i>
+                </a>
+                <br>
+            </div>
+        </nav>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <!-- Politique de confidentialité et Mentions légales -->
+        <div class="text-center">
+<a href="{{ path('app_politique') }}" style="color: #000000; text-decoration: none;">Politique de confidentialité</a>
+    <a href="{{ path('app_mentions') }}"style="color: #000000; text-decoration: none;" >Mentions Légales</a>
+</div>
+    </div>
+
+
+    <!-- Script pour la flèche -->
+    <script>
+        document.getElementById('arrow-up').addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <!-- FontAwesome et jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
 </html>

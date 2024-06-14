@@ -3,3 +3,18 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+app_cgu:
+    path: '/cgu'
+    controller: 'App\Controller\CguController::cgu'
+
+app_politique:
+    path: /politique
+    controller: App\Controller\PoliMentionController::politique
+
+app_mentions:
+    path: /mentions
+    controller: App\Controller\PoliMentionController::mentions

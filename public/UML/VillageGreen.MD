@@ -44,7 +44,7 @@ Administrateur --> (Consulter les indicateurs de performance)
 
 @enduml
 
-![Diagramme de Séquence](/public/UML/CasUtilisation.puml)
+![Diagramme de Séquence](/public/UML/GVCasUtilisation.png)
 
 ## Diagramme de Séquence
 

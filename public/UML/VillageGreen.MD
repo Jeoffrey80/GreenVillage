@@ -99,56 +99,64 @@ stop
 
 # Diagramme de Classes (Entités)
 
-**Explication**
-
-Le diagramme de classes décrit les différentes classes du système et leurs relations. Les classes incluent Client, Produit, Commande, Facture et Catalogue. Chaque classe a ses propres attributs, et les relations entre les classes sont indiquées.
-
-***Code PlantUML***
-@startuml
-class Client {
-    - clientId : int
-    - nom : String
-    - adresse : String
-    - typeClient : String
-    - coefficient : float
-}
-
-class Produit {
-    - produitId : int
-    - libelle : String
-    - description : String
-    - prixAchat : float
-    - photo : String
-    - rubrique : String
-    - sousRubrique : String
-}
-
-class Commande {
-    - commandeId : int
-    - dateCommande : Date
-    - montantTotal : float
-    - statut : String
-    - clientId : int
-}
-
-class Facture {
-    - factureId : int
-    - commandeId : int
-    - montant : float
-    - dateEmission : Date
-}
-
-class Catalogue {
-    - catalogueId : int
-    - produits : List<Produit>
-}
-
-Client "1" --> "0..*" Commande
-Commande "1" --> "1" Facture
-Catalogue "1" --> "0..*" Produit
-@enduml
-
 ![Diagramme de Classes](/public/UML/GVClasses.png)
+
+# Explication
+
+Ce diagramme de classes représente un modèle de gestion de clients, produits, commandes et factures. 
+Voici une explication des différentes classes et de leurs relations.
+
+    **Classe Client :**
+        Attributs :
+            clientId : int : Identifiant unique du client.
+            nom : String : Nom du client.
+            adresse : String : Adresse du client.
+            typeClient : String : Type de client (ex : régulier, VIP).
+            coefficient : float : Coefficient associé au client, peut-être utilisé pour des remises ou des calculs spécifiques.
+
+    **Classe Produit :**
+        Attributs :
+            produitId : int : Identifiant unique du produit.
+            libelle : String : Nom ou libellé du produit.
+            description : String : Description détaillée du produit.
+            prixAchat : float : Prix d'achat du produit.
+            photo : String : URL ou chemin vers la photo du produit.
+            rubrique : String : Rubrique principale à laquelle appartient le produit.
+            sousRubrique : String : Sous-rubrique spécifique du produit.
+
+    **Classe Commande :**
+        Attributs :
+            commandeId : int : Identifiant unique de la commande.
+            dateCommande : Date : Date à laquelle la commande a été passée.
+            montantTotal : float : Montant total de la commande.
+            statut : String : Statut de la commande (ex : en cours, livrée, annulée).
+            clientId : int : Identifiant du client ayant passé la commande.
+
+    **Classe Facture :**
+        Attributs :
+            factureId : int : Identifiant unique de la facture.
+            commandeId : int : Identifiant de la commande associée à la facture.
+            montant : float : Montant de la facture.
+            dateEmission : Date : Date d'émission de la facture.
+
+    **Classe Catalogue :**
+        Attributs :
+            catalogueId : int : Identifiant unique du catalogue.
+            produits : List<Produit> : Liste de produits présents dans le catalogue.
+
+# Relations entre les Classes
+
+    **Relation Client - Commande :**
+        Un client (Client) peut passer plusieurs commandes (Commande).
+        Relation de type "1 à 0..*" : Un client peut avoir zéro ou plusieurs commandes.
+
+   ** Relation Commande - Facture :**
+        Une commande (Commande) est associée à une unique facture (Facture).
+        Relation de type "1 à 1" : Une commande entraîne l'émission d'une seule facture.
+
+    **Relation Catalogue - Produit :**
+        Un catalogue (Catalogue) contient plusieurs produits (Produit).
+        Relation de type "1 à 0..*" : Un catalogue peut contenir zéro ou plusieurs produits.
 
 **Conclusion**
 

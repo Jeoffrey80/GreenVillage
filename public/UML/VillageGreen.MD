@@ -159,6 +159,5 @@ Voici une explication des différentes classes et de leurs relations.
         Relation de type "1 à 0..*" : Un catalogue peut contenir zéro ou plusieurs produits.  
   
 **Conclusion**  
-
 Ces diagrammes UML offrent une vue complète du système de gestion des commandes et de facturation pour l'entreprise Village Green.  
 Ils peuvent être utilisés comme base pour le développement et l'amélioration du système existant.  

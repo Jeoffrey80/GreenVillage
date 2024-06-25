@@ -1,0 +1,33 @@
+@startuml
+actor ClientParticulier
+actor ClientProfessionnel
+actor GestionnaireDeProduits
+actor Commercial
+actor Administrateur
+
+ClientParticulier --> (Consulter le catalogue)
+ClientParticulier --> (Ajouter/Supprimer un produit dans le panier)
+ClientParticulier --> (S'inscrire)
+ClientParticulier --> (Se connecter/Se déconnecter)
+ClientParticulier --> (Valider le panier et créer une commande)
+ClientParticulier --> (Visualiser les anciennes commandes)
+
+ClientProfessionnel --> (Consulter le catalogue)
+ClientProfessionnel --> (Ajouter/Supprimer un produit dans le panier)
+ClientProfessionnel --> (Se connecter/Se déconnecter)
+ClientProfessionnel --> (Valider le panier et créer une commande)
+ClientProfessionnel --> (Visualiser les anciennes commandes)
+ClientProfessionnel --> (Négocier une remise)
+
+GestionnaireDeProduits --> (Ajouter des produits)
+GestionnaireDeProduits --> (Modifier les caractéristiques des produits)
+GestionnaireDeProduits --> (Supprimer des produits)
+GestionnaireDeProduits --> (Modifier l'arborescence des catégories)
+
+Commercial --> (Négocier une remise)
+Commercial --> (Générer des rapports de performance)
+
+Administrateur --> (Gérer les utilisateurs et les droits)
+Administrateur --> (Consulter les indicateurs de performance)
+
+@enduml

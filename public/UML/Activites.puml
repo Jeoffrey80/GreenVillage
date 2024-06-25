@@ -1,0 +1,16 @@
+@startuml
+start
+:Consulter le catalogue;
+:Ajouter produit au panier;
+:Valider le panier;
+:Créer commande;
+:Confirmer stock;
+if (Stock suffisant?) then (oui)
+    :Confirmer paiement;
+    :Créer facture;
+    :Envoyer confirmation et facture;
+else (non)
+    :Notifier client;
+endif
+stop
+@enduml

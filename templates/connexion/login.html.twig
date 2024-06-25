@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<style>
+    /* Styles CSS */
+    .image-reduite {
+        width:125px;
+        /* Largeur souhaitée */
+        height:125px;
+        /* Hauteur souhaitée */
+    }
+
+    .logo-gauche {
+        margin-left: 0;
+    }
+
+    .navbar-custom {
+        min-height: 40px; /* Hauteur personnalisée pour la navbar */
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<br><br><br><br>
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+           <p> Vous êtes connecté à l'adresse <b>{{ app.user.userIdentifier }}</b>,</p> <p><a href="{{ path('app_logout') }}">déconnexion</a>
+            ou <a href="{{ path('app_accueil')}}">Retourner à la page d'accueil</a></p>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter pour pouvoir acceder à votre commande</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Mot de Passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}">
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Connexion
+    </button>
+</form>
+<p>Pas de compte ? <a href="{{ path('app_register') }}">Inscrivez-vous !</a></p>
+{% endblock %}

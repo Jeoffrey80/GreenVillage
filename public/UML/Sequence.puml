@@ -1,0 +1,17 @@
+@startuml
+actor Client
+participant "Site Web E-Commerce" as ECommerce
+participant "Système de Gestion" as Gestion
+participant "Banque" as Banque
+
+Client -> ECommerce: Valider le panier
+ECommerce -> Gestion: Créer commande
+Gestion -> Gestion: Vérifier stock
+Gestion -> ECommerce: Confirmer commande
+ECommerce -> Gestion: Confirmer paiement
+Gestion -> Banque: Demande de paiement
+Banque -> Gestion: Confirmer paiement
+Gestion -> ECommerce: Créer facture
+ECommerce -> Client: Afficher confirmation
+Gestion -> Client: Envoyer facture
+@enduml

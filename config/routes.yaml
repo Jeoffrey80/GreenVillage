@@ -18,3 +18,7 @@ app_politique:
 app_mentions:
     path: /mentions
     controller: App\Controller\PoliMentionController::mentions
+
+app_registration:
+    path: '/register'
+    controller: 'App\Controller\RegistrationController::register'

@@ -3,12 +3,12 @@
 ## Introduction
 L'entreprise Village Green distribue du matériel musical et souhaite évoluer son système de gestion des commandes et de facturation. Ce document contient les diagrammes UML décrivant le système en utilisant les cas d'utilisation, les séquences, les activités et les classes.
 
-## Diagramme de Cas d'Utilisation
+# Diagramme de Cas d'Utilisation
 
-### Explication
+**Explication**
 Le diagramme de cas d'utilisation décrit les interactions entre les différents types d'utilisateurs (acteurs) et le système. Les acteurs incluent les clients particuliers, les clients professionnels, les gestionnaires de produits, les commerciaux et les administrateurs. Les principaux cas d'utilisation couvrent la consultation du catalogue, la gestion des produits, la création de commandes, etc.
 
-### Code PlantUML
+***Code PlantUML***
 plantuml
 @startuml
 actor ClientParticulier
@@ -44,13 +44,14 @@ Administrateur --> (Consulter les indicateurs de performance)
 
 @enduml
 
-![Diagramme de Séquence](/public/UML/GVCasUtilisation.png)
+![Diagramme de Cas d'Utilisation](/public/UML/GVCasUtilisation.png)
 
-## Diagramme de Séquence
+# Diagramme de Séquence
 
-### Explication 
+**Explication** 
 Le diagramme de séquence montre l'interaction entre les différents objets pour réaliser un cas d'utilisation spécifique : la validation du panier et la création d'une commande. Il décrit comment le client interagit avec le site web, qui à son tour interagit avec le système de gestion et la banque.
 
+***Code PlantUML***
 @startuml
 actor Client
 participant "Site Web E-Commerce" as ECommerce
@@ -71,11 +72,12 @@ Gestion -> Client: Envoyer facture
 
 ![Diagramme de Séquence](/public/UML/GVSequence.png)
 
-## Diagramme d'Activités
+# Diagramme d'Activités
 
-### Explication
+**Explication**
 Le diagramme d'activités illustre le flux de travail impliqué dans le processus de commande pour un client particulier. Il montre les étapes allant de la consultation du catalogue à l'envoi de la confirmation et de la facture, en passant par la validation du panier et la création de la commande.
 
+***Code PlantUML***
 @startuml
 start
 :Consulter le catalogue;
@@ -93,14 +95,15 @@ endif
 stop
 @enduml
 
-![Diagramme de Séquence](/public/UML/GVActivites.png)
+![Diagramme d'Activité](/public/UML/GVActivites.png)
 
-## Diagramme de Classes (Entités)
+# Diagramme de Classes (Entités)
 
-### Explication
+**Explication**
 
 Le diagramme de classes décrit les différentes classes du système et leurs relations. Les classes incluent Client, Produit, Commande, Facture et Catalogue. Chaque classe a ses propres attributs, et les relations entre les classes sont indiquées.
 
+***Code PlantUML***
 @startuml
 class Client {
     - clientId : int
@@ -145,8 +148,8 @@ Commande "1" --> "1" Facture
 Catalogue "1" --> "0..*" Produit
 @enduml
 
-![Diagramme de Séquence](/public/UML/GVClasses.png)
+![Diagramme de Classes](/public/UML/GVClasses.png)
 
-## Conclusion
+**Conclusion**
 
 Ces diagrammes UML offrent une vue complète du système de gestion des commandes et de facturation pour l'entreprise Village Green. Ils peuvent être utilisés comme base pour le développement et l'amélioration du système existant.

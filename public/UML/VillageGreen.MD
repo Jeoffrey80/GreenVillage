@@ -9,7 +9,7 @@ L'entreprise Village Green distribue du matériel musical et souhaite évoluer s
 Le diagramme de cas d'utilisation décrit les interactions entre les différents types d'utilisateurs (acteurs) et le système. Les acteurs incluent les clients particuliers, les clients professionnels, les gestionnaires de produits, les commerciaux et les administrateurs. Les principaux cas d'utilisation couvrent la consultation du catalogue, la gestion des produits, la création de commandes, etc.
 
 ### Code PlantUML
-```plantuml
+plantuml
 @startuml
 actor ClientParticulier
 actor ClientProfessionnel
@@ -42,7 +42,9 @@ Commercial --> (Générer des rapports de performance)
 Administrateur --> (Gérer les utilisateurs et les droits)
 Administrateur --> (Consulter les indicateurs de performance)
 
-@enduml ```
+@enduml
+
+![Diagramme de Séquence](/public/UML/CasUtilisation.puml)
 
 ## Diagramme de Séquence
 
@@ -67,6 +69,8 @@ ECommerce -> Client: Afficher confirmation
 Gestion -> Client: Envoyer facture
 @enduml
 
+![Diagramme de Séquence](/public/UML/GVSequence.png)
+
 ## Diagramme d'Activités
 
 ### Explication
@@ -88,6 +92,8 @@ else (non)
 endif
 stop
 @enduml
+
+![Diagramme de Séquence](/public/UML/GVActivites.png)
 
 ## Diagramme de Classes (Entités)
 
@@ -138,6 +144,8 @@ Client "1" --> "0..*" Commande
 Commande "1" --> "1" Facture
 Catalogue "1" --> "0..*" Produit
 @enduml
+
+![Diagramme de Séquence](/public/UML/GVClasses.png)
 
 ## Conclusion
 

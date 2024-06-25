@@ -42,7 +42,7 @@ Commercial --> (Générer des rapports de performance)
 Administrateur --> (Gérer les utilisateurs et les droits)
 Administrateur --> (Consulter les indicateurs de performance)
 
-@enduml
+@enduml ```
 
 ## Diagramme de Séquence
 

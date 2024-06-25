@@ -75,26 +75,9 @@ Gestion -> Client: Envoyer facture
 # Diagramme d'Activités
 
 **Explication**
-Le diagramme d'activités illustre le flux de travail impliqué dans le processus de commande pour un client particulier. Il montre les étapes allant de la consultation du catalogue à l'envoi de la confirmation et de la facture, en passant par la validation du panier et la création de la commande.
-
-***Code PlantUML***
-@startuml
-start
-:Consulter le catalogue;
-:Ajouter produit au panier;
-:Valider le panier;
-:Créer commande;
-:Confirmer stock;
-if (Stock suffisant?) then (oui)
-    :Confirmer paiement;
-    :Créer facture;
-    :Envoyer confirmation et facture;
-else (non)
-    :Notifier client;
-endif
-stop
-@enduml
-
+Le diagramme d'activités illustre le flux de travail impliqué dans le processus de commande pour un client particulier.   
+Il montre les étapes allant de la consultation du catalogue à l'envoi de la confirmation et de la facture,   
+en passant par la validation du panier et la création de la commande.
 ![Diagramme d'Activité](/public/UML/GVActivites.png)
 
 # Diagramme de Classes (Entités)

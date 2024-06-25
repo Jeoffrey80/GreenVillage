@@ -104,16 +104,16 @@ stop
 # Explication
 
 Ce diagramme de classes représente un modèle de gestion de clients, produits, commandes et factures. 
-Voici une explication des différentes classes et de leurs relations.
-
+Voici une explication des différentes classes et de leurs relations.  
+  
 **Classe Client :**
-        Attributs :
-            clientId : int : Identifiant unique du client.
-            nom : String : Nom du client.
-            adresse : String : Adresse du client.
-            typeClient : String : Type de client (ex : régulier, VIP).
-            coefficient : float : Coefficient associé au client, peut-être utilisé pour des remises ou des calculs spécifiques.
-
+        Attributs :  
+            clientId : int : Identifiant unique du client.  
+            nom : String : Nom du client.  
+            adresse : String : Adresse du client.  
+            typeClient : String : Type de client (ex : régulier, VIP).  
+            coefficient : float : Coefficient associé au client, peut-être utilisé pour des remises ou des calculs spécifiques.  
+  
 **Classe Produit :**
         Attributs :
             produitId : int : Identifiant unique du produit.

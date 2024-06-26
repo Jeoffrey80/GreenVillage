@@ -2,8 +2,10 @@
 class Client {
     - clientId : int
     - nom : String
+    - prenom : String
     - adresse : String
-    - typeClient : String
+    - password : String
+    - typeClient : bool
     - coefficient : float
 }
 
@@ -20,7 +22,7 @@ class Produit {
 class Commande {
     - commandeId : int
     - dateCommande : Date
-    - montantTotal : float
+    - montantTotal : decimal
     - statut : String
     - clientId : int
 }
@@ -28,16 +30,22 @@ class Commande {
 class Facture {
     - factureId : int
     - commandeId : int
-    - montant : float
+    - montant : decimal
     - dateEmission : Date
 }
 
-class Catalogue {
-    - catalogueId : int
+class Categorie {
+    - categorieId : int
     - produits : List<Produit>
+}
+
+class SsCategorie{
+    -sscategorieId : int
+    -produits : List<Produit>
 }
 
 Client "1" --> "0..*" Commande
 Commande "1" --> "1" Facture
 Catalogue "1" --> "0..*" Produit
+SsCategorie "1"-->"0..*"Categorie
 @enduml

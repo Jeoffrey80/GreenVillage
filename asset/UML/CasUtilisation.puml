@@ -33,3 +33,4 @@ UC4 --> UC11 : include
 
 SystemePaiement --> UC11
 @enduml
+composer require --dev orm-fixtures

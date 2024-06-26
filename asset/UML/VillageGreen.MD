@@ -101,13 +101,64 @@ assurant ainsi que toutes les étapes nécessaires pour finaliser la commande so
 Ce diagramme de séquence capture l'essentiel du processus de commande en ligne, montrant les étapes clés et les interactions entre les différents systèmes impliqués.  
 ![Diagramme de Séquence](/asset/UML/GVSequence.png)
 
-# Diagramme d'Activités
+# Diagramme d'Activités  
+  
+**Explication du Diagramme d'Activités**  
+  
+Le diagramme d'activités PlantUML ci-dessus décrit le processus de commande dans un site de commerce électronique,   
+depuis la consultation du catalogue jusqu'à l'envoi de la confirmation et de la facture, ou la notification au client en cas de stock insuffisant.  
+Voici une explication étape par étape :  
+  
+# Étapes du Processus  
+  
+*Consulter le catalogue*    
+        Le client consulte le catalogue de produits disponible sur le site e-commerce.  
+        Cette étape permet de visualiser les différents produits proposés.  
+  
+*Ajouter produit au panier*  
+        Le client sélectionne les produits qu'il souhaite acheter et les ajoute à son panier.  
+  
+*Valider le panier*  
+        Une fois les produits choisis, le client valide son panier pour passer à l'étape de commande.  
+  
+*Créer commande*  
+        Le système crée une nouvelle commande en se basant sur les produits présents dans le panier validé par le client.  
 
-**Explication**
-Le diagramme d'activités illustre le flux de travail impliqué dans le processus de commande pour un client particulier.   
-Il montre les étapes allant de la consultation du catalogue à l'envoi de la confirmation et de la facture,   
-en passant par la validation du panier et la création de la commande.
-![Diagramme d'Activité](/public/UML/GVActivites.png)
+*Confirmer stock*  
+        Le système vérifie la disponibilité des produits en stock.  
+  
+## Décision sur la Disponibilité du Stock
+
+*Stock suffisant?*  
+        Le diagramme bifurque en fonction de la disponibilité du stock :  
+            Oui : Si le stock est suffisant pour tous les produits de la commande.  
+            Non : Si le stock est insuffisant pour un ou plusieurs produits.  
+  
+*Branche "Stock Suffisant"*  
+  
+*Confirmer paiement*  
+        Si le stock est suffisant, le système procède à la confirmation du paiement.  
+        Cela peut inclure une interaction avec un service de paiement pour autoriser la transaction.  
+  
+*Créer facture*  
+        Une fois le paiement confirmé, le système génère une facture pour la commande.  
+
+*Envoyer confirmation et facture*  
+        Le système envoie une confirmation de commande et la facture au client, clôturant ainsi le processus de commande.  
+  
+*Branche "Stock Insuffisant"*  
+  
+*Notifier client*    
+        Si le stock est insuffisant, le système notifie le client de l'indisponibilité des produits souhaités.  
+        Le processus s'arrête à cette étape sans créer de commande ni de facture.  
+
+## Points Clés
+
+*Flux Principal :* La majorité des commandes suivront le flux principal où le stock est suffisant, le paiement est confirmé, et la commande est finalisée avec l'envoi d'une confirmation et d'une facture au client.
+*Scénario Alternatif :* Si le stock est insuffisant, le client est immédiatement notifié, ce qui évite toute frustration liée à des commandes impossibles à honorer.
+*Décision Critique :* La vérification du stock est une décision critique qui détermine le chemin que prendra le reste du processus de commande.
+  
+![Diagramme d'Activité](/asset/UML/GVActivites.png)
 
 # Diagramme de Classes (Entités)  
   

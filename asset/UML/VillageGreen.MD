@@ -64,33 +64,61 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
 *Système de paiement :*  
         Traiter paiement  
   
-![Diagramme de Cas d'Utilisation](/public/UML/GVCasUtilisation.png)
+![Diagramme de Cas d'Utilisation](/asset/UML/GVCasUtilisation.png)
 
 # Diagramme de Séquence
 
 **Explication** 
-Le diagramme de séquence montre l'interaction entre les différents objets pour réaliser un cas d'utilisation spécifique : la validation du panier et la création d'une commande. Il décrit comment le client interagit avec le site web, qui à son tour interagit avec le système de gestion et la banque.
+Le diagramme de séquence montre les interactions entre un client, le site web e-commerce,  
+le système de gestion et la banque lors de la validation du panier et du processus de commande.  
+Voici les étapes détaillées :
 
-***Code PlantUML***
-@startuml
-actor Client
-participant "Site Web E-Commerce" as ECommerce
-participant "Système de Gestion" as Gestion
-participant "Banque" as Banque
+    Client -> Site Web E-Commerce : Valider le panier  
+        Le client valide son panier sur le site web e-commerce, indiquant qu'il est prêt à passer la commande.  
+  
+    Site Web E-Commerce -> Système de Gestion : Créer commande  
+        Le site web e-commerce envoie une demande au système de gestion pour créer une nouvelle commande.  
+  
+    Système de Gestion -> Système de Gestion : Vérifier stock  
+        Le système de gestion vérifie le stock des produits pour s'assurer que les articles commandés sont disponibles.  
+  
+    Système de Gestion -> Site Web E-Commerce : Confirmer commande  
+        Une fois le stock vérifié, le système de gestion confirme la commande au site web e-commerce.  
+  
+    Site Web E-Commerce -> Système de Gestion : Confirmer paiement  
+        Le site web e-commerce envoie une demande au système de gestion pour confirmer le paiement de la commande.  
+  
+    Système de Gestion -> Banque : Demande de paiement  
+        Le système de gestion contacte la banque pour demander la confirmation du paiement de la commande.  
+  
+    Banque -> Système de Gestion : Confirmer paiement  
+        La banque confirme le paiement au système de gestion.  
+  
+    Système de Gestion -> Site Web E-Commerce : Créer facture  
+        Une fois le paiement confirmé, le système de gestion crée une facture pour la commande.  
+  
+    Site Web E-Commerce -> Client : Afficher confirmation  
+        Le site web e-commerce affiche une confirmation de la commande au client.  
+  
+    Système de Gestion -> Client : Envoyer facture  
+        Le système de gestion envoie la facture générée au client, généralement par email.  
+  
+**Points Clés**  
 
-Client -> ECommerce: Valider le panier
-ECommerce -> Gestion: Créer commande
-Gestion -> Gestion: Vérifier stock
-Gestion -> ECommerce: Confirmer commande
-ECommerce -> Gestion: Confirmer paiement
-Gestion -> Banque: Demande de paiement
-Banque -> Gestion: Confirmer paiement
-Gestion -> ECommerce: Créer facture
-ECommerce -> Client: Afficher confirmation
-Gestion -> Client: Envoyer facture
-@enduml
-
-![Diagramme de Séquence](/public/UML/GVSequence.png)
+*Interactions des Acteurs :*  
+    Les interactions principales se font entre le client, le site web e-commerce,  
+    le système de gestion et la banque. Chaque acteur joue un rôle essentiel dans le processus de commande.  
+      
+*Vérifications :*  
+Avant de confirmer la commande, des vérifications importantes sont effectuées,  
+notamment la vérification du stock et la confirmation du paiement.  
+  
+*Génération de Facture :*  
+Une fois le paiement confirmé, une facture est générée et envoyée au client,  
+assurant ainsi que toutes les étapes nécessaires pour finaliser la commande sont complétées.  
+  
+Ce diagramme de séquence capture l'essentiel du processus de commande en ligne, montrant les étapes clés et les interactions entre les différents systèmes impliqués.  
+![Diagramme de Séquence](/asset/UML/GVSequence.png)
 
 # Diagramme d'Activités
 

@@ -45,25 +45,6 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
 *Système de paiement :*  
         Traite les paiements pour les commandes.  
   
-**Identifier les cas d'utilisation :**  
-  
-*Client :*  
-        Consulter le catalogue
-        Ajouter produit au panier
-        Valider le panier
-        Créer commande
-        Consulter commandes
-        Modifier ses informations personnelles
-
-*Administrateur :*  
-        Gérer produits (ajouter, modifier, supprimer)
-        Gérer catégories et sous-catégories
-        Consulter toutes les commandes
-        Consulter toutes les factures  
-  
-*Système de paiement :*  
-        Traiter paiement  
-  
 ![Diagramme de Cas d'Utilisation](/asset/UML/GVCasUtilisation.png)
 
 # Diagramme de Séquence

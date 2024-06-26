@@ -8,42 +8,61 @@ L'entreprise Village Green distribue du matériel musical et souhaite évoluer s
 **Explication**
 Le diagramme de cas d'utilisation décrit les interactions entre les différents types d'utilisateurs (acteurs) et le système. Les acteurs incluent les clients particuliers, les clients professionnels, les gestionnaires de produits, les commerciaux et les administrateurs. Les principaux cas d'utilisation couvrent la consultation du catalogue, la gestion des produits, la création de commandes, etc.
 
-***Code PlantUML***
-plantuml
-@startuml
-actor ClientParticulier
-actor ClientProfessionnel
-actor GestionnaireDeProduits
-actor Commercial
-actor Administrateur
+**Identifier les acteurs :**  
+        *Client :*  
+        Le client qui interagit avec le système pour consulter le catalogue,  
+        ajouter des produits au panier, passer des commandes, etc.  
+          
+        *Administrateur :*  
+        Gère les produits, catégories, sous-catégories et peut consulter les commandes et factures.  
+  
+        Système de paiement : Traite les paiements pour les commandes.  
+  
+**Identifier les cas d'utilisation :**  
+  
+        *Client :*  
+            Consulter le catalogue
+            Ajouter produit au panier
+            Valider le panier
+            Créer commande
+            Consulter commandes
+            Modifier ses informations personnelles
 
-ClientParticulier --> (Consulter le catalogue)
-ClientParticulier --> (Ajouter/Supprimer un produit dans le panier)
-ClientParticulier --> (S'inscrire)
-ClientParticulier --> (Se connecter/Se déconnecter)
-ClientParticulier --> (Valider le panier et créer une commande)
-ClientParticulier --> (Visualiser les anciennes commandes)
+        *Administrateur :*  
+            Gérer produits (ajouter, modifier, supprimer)
+            Gérer catégories et sous-catégories
+            Consulter toutes les commandes
+            Consulter toutes les factures
 
-ClientProfessionnel --> (Consulter le catalogue)
-ClientProfessionnel --> (Ajouter/Supprimer un produit dans le panier)
-ClientProfessionnel --> (Se connecter/Se déconnecter)
-ClientProfessionnel --> (Valider le panier et créer une commande)
-ClientProfessionnel --> (Visualiser les anciennes commandes)
-ClientProfessionnel --> (Négocier une remise)
+        *Système de paiement :*  
+            Traiter paiement
 
-GestionnaireDeProduits --> (Ajouter des produits)
-GestionnaireDeProduits --> (Modifier les caractéristiques des produits)
-GestionnaireDeProduits --> (Supprimer des produits)
-GestionnaireDeProduits --> (Modifier l'arborescence des catégories)
 
-Commercial --> (Négocier une remise)
-Commercial --> (Générer des rapports de performance)
+        *Administrateur :*  
+        Gère les produits, catégories, sous-catégories et peut consulter les commandes et factures.  
+          
+        *Système de paiement :*  
+        Traite les paiements pour les commandes.  
+  
+**Identifier les cas d'utilisation :**  
+  
+    *Client :*  
+        Consulter le catalogue
+        Ajouter produit au panier
+        Valider le panier
+        Créer commande
+        Consulter commandes
+        Modifier ses informations personnelles
 
-Administrateur --> (Gérer les utilisateurs et les droits)
-Administrateur --> (Consulter les indicateurs de performance)
-
-@enduml
-
+    *Administrateur :*  
+        Gérer produits (ajouter, modifier, supprimer)
+        Gérer catégories et sous-catégories
+        Consulter toutes les commandes
+        Consulter toutes les factures  
+  
+    *Système de paiement :*  
+        Traiter paiement  
+  
 ![Diagramme de Cas d'Utilisation](/public/UML/GVCasUtilisation.png)
 
 # Diagramme de Séquence

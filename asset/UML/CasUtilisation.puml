@@ -1,33 +1,35 @@
 @startuml
-actor ClientParticulier
-actor ClientProfessionnel
-actor GestionnaireDeProduits
-actor Commercial
+actor Client
 actor Administrateur
+actor "Système de paiement" as SystemePaiement
 
-ClientParticulier --> (Consulter le catalogue)
-ClientParticulier --> (Ajouter/Supprimer un produit dans le panier)
-ClientParticulier --> (S'inscrire)
-ClientParticulier --> (Se connecter/Se déconnecter)
-ClientParticulier --> (Valider le panier et créer une commande)
-ClientParticulier --> (Visualiser les anciennes commandes)
+usecase "Consulter le catalogue" as UC1
+usecase "Ajouter produit au panier" as UC2
+usecase "Valider le panier" as UC3
+usecase "Créer commande" as UC4
+usecase "Consulter commandes" as UC5
+usecase "Modifier informations personnelles" as UC6
 
-ClientProfessionnel --> (Consulter le catalogue)
-ClientProfessionnel --> (Ajouter/Supprimer un produit dans le panier)
-ClientProfessionnel --> (Se connecter/Se déconnecter)
-ClientProfessionnel --> (Valider le panier et créer une commande)
-ClientProfessionnel --> (Visualiser les anciennes commandes)
-ClientProfessionnel --> (Négocier une remise)
+usecase "Gérer produits" as UC7
+usecase "Gérer catégories et sous-catégories" as UC8
+usecase "Consulter toutes les commandes" as UC9
+usecase "Consulter toutes les factures" as UC10
 
-GestionnaireDeProduits --> (Ajouter des produits)
-GestionnaireDeProduits --> (Modifier les caractéristiques des produits)
-GestionnaireDeProduits --> (Supprimer des produits)
-GestionnaireDeProduits --> (Modifier l'arborescence des catégories)
+usecase "Traiter paiement" as UC11
 
-Commercial --> (Négocier une remise)
-Commercial --> (Générer des rapports de performance)
+Client --> UC1
+Client --> UC2
+Client --> UC3
+Client --> UC4
+Client --> UC5
+Client --> UC6
 
-Administrateur --> (Gérer les utilisateurs et les droits)
-Administrateur --> (Consulter les indicateurs de performance)
+Administrateur --> UC7
+Administrateur --> UC8
+Administrateur --> UC9
+Administrateur --> UC10
 
+UC4 --> UC11 : include
+
+SystemePaiement --> UC11
 @enduml

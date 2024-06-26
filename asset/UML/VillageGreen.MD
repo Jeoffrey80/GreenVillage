@@ -22,7 +22,7 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
   
 **Identifier les cas d'utilisation :**  
   
-        *Client :*  
+*Client :*  
             Consulter le catalogue
             Ajouter produit au panier
             Valider le panier
@@ -30,25 +30,24 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
             Consulter commandes
             Modifier ses informations personnelles
 
-        *Administrateur :*  
+*Administrateur :*  
             Gérer produits (ajouter, modifier, supprimer)
             Gérer catégories et sous-catégories
             Consulter toutes les commandes
             Consulter toutes les factures
 
-        *Système de paiement :*  
+*Système de paiement :*  
             Traiter paiement
 
-
-        *Administrateur :*  
+ *Administrateur :*  
         Gère les produits, catégories, sous-catégories et peut consulter les commandes et factures.  
           
-        *Système de paiement :*  
+*Système de paiement :*  
         Traite les paiements pour les commandes.  
   
 **Identifier les cas d'utilisation :**  
   
-    *Client :*  
+*Client :*  
         Consulter le catalogue
         Ajouter produit au panier
         Valider le panier
@@ -56,13 +55,13 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
         Consulter commandes
         Modifier ses informations personnelles
 
-    *Administrateur :*  
+*Administrateur :*  
         Gérer produits (ajouter, modifier, supprimer)
         Gérer catégories et sous-catégories
         Consulter toutes les commandes
         Consulter toutes les factures  
   
-    *Système de paiement :*  
+*Système de paiement :*  
         Traiter paiement  
   
 ![Diagramme de Cas d'Utilisation](/public/UML/GVCasUtilisation.png)

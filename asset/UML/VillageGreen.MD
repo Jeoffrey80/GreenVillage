@@ -9,14 +9,16 @@ L'entreprise Village Green distribue du matériel musical et souhaite évoluer s
 Le diagramme de cas d'utilisation décrit les interactions entre les différents types d'utilisateurs (acteurs) et le système. Les acteurs incluent les clients particuliers, les clients professionnels, les gestionnaires de produits, les commerciaux et les administrateurs. Les principaux cas d'utilisation couvrent la consultation du catalogue, la gestion des produits, la création de commandes, etc.
 
 **Identifier les acteurs :**  
-        *Client :*  
+  
+*Client :*  
         Le client qui interagit avec le système pour consulter le catalogue,  
         ajouter des produits au panier, passer des commandes, etc.  
           
-        *Administrateur :*  
+*Administrateur :*  
         Gère les produits, catégories, sous-catégories et peut consulter les commandes et factures.  
   
-        Système de paiement : Traite les paiements pour les commandes.  
+*Système de paiement :*  
+         Traite les paiements pour les commandes.  
   
 **Identifier les cas d'utilisation :**  
   

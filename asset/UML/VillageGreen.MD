@@ -109,10 +109,76 @@ Il montre les étapes allant de la consultation du catalogue à l'envoi de la co
 en passant par la validation du panier et la création de la commande.
 ![Diagramme d'Activité](/public/UML/GVActivites.png)
 
-# Diagramme de Classes (Entités)
+# Diagramme de Classes (Entités)  
+  
+## Classes et Attributs
 
-![Diagramme de Classes](/public/UML/GVClasses.png)
+*Client*  
+        clientId : int : Identifiant unique du client.  
+        nom : String : Nom du client.  
+        prenom : String : Prénom du client.  
+        adresse : String : Adresse du client.  
+        password : String : Mot de passe encodé du client.  
+        typeClient : bool : Indique si le client est un particulier ou une entreprise (vrai/faux).  
+        coefficient : float : Coefficient de réduction appliqué aux commandes du client.  
+  
+*Produit*  
+        produitId : int : Identifiant unique du produit.  
+        libelle : String : Libellé ou nom du produit.  
+        description : String : Description du produit.  
+        prixAchat : float : Prix d'achat du produit.  
+        photo : String : URL ou chemin vers la photo du produit.  
+        rubrique : String : Rubrique principale du produit.  
+        sousRubrique : String : Sous-rubrique du produit.  
+  
+*Commande*  
+        commandeId : int : Identifiant unique de la commande.  
+        dateCommande : Date : Date à laquelle la commande a été passée.  
+        montantTotal : decimal : Montant total de la commande.  
+        statut : String : Statut de la commande (ex. : en cours, expédiée, livrée).  
+        clientId : int : Identifiant du client ayant passé la commande.  
+  
+*Facture*  
+        factureId : int : Identifiant unique de la facture.  
+        commandeId : int : Identifiant de la commande associée à la facture.  
+        montant : decimal : Montant total de la facture.  
+        dateEmission : Date : Date d'émission de la facture.  
+  
+*Categorie*  
+        categorieId : int : Identifiant unique de la catégorie.  
+        produits : List<Produit> : Liste des produits appartenant à cette catégorie.  
+  
+*SsCategorie*  
+        sscategorieId : int : Identifiant unique de la sous-catégorie.  
+        produits : List<Produit> : Liste des produits appartenant à cette sous-catégorie.  
 
+## Relations Entre les Classes  
+  
+    Client "1" --> "0..*" Commande  
+        Un client peut passer plusieurs commandes (relation un-à-plusieurs).  
+  
+    Commande "1" --> "1" Facture  
+        Chaque commande est associée à une seule facture (relation un-à-un).  
+
+    Catalogue "1" --> "0..*" Produit  
+        Un catalogue peut contenir plusieurs produits (relation un-à-plusieurs).  
+  
+    SsCategorie "1" --> "0..*" Categorie  
+        Une sous-catégorie peut contenir plusieurs catégories, mais cette relation semble inversée.  
+        Logiquement, une catégorie devrait contenir plusieurs sous-catégories.  
+
+### Points Clés  
+  
+    Client et Commande : Les clients passent des commandes. Chaque client peut avoir plusieurs commandes, mais chaque commande est associée à un seul client.  
+    Commande et Facture : Chaque commande a une facture unique associée, reflétant le montant et les détails de la commande.  
+    Catalogue et Produit : Les produits sont organisés dans un catalogue, facilitant la recherche et la gestion des produits.  
+    Categorie et SsCategorie : Les produits sont classés dans des catégories et des sous-catégories, permettant une organisation hiérarchique des produits.  
+
+Ce diagramme de classe donne une vue d'ensemble structurée des principales entités et de leurs relations dans un système de gestion de commerce électronique,  
+facilitant ainsi la compréhension et le développement du système.  
+  
+![Diagramme de Classes](/asset/UML/GVClasses.png)
+  
 # Explication
 
 Ce diagramme de classes représente un modèle de gestion de clients, produits, commandes et factures. 

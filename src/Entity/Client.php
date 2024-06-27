@@ -44,6 +44,10 @@ class Client
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $reduction_professionnelle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Client')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commercial $commercial = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +169,18 @@ class Client
     public function setReductionProfessionnelle(string $reduction_professionnelle): static
     {
         $this->reduction_professionnelle = $reduction_professionnelle;
+
+        return $this;
+    }
+
+    public function getCommercial(): ?Commercial
+    {
+        return $this->commercial;
+    }
+
+    public function setCommercial(?Commercial $commercial): static
+    {
+        $this->commercial = $commercial;
 
         return $this;
     }

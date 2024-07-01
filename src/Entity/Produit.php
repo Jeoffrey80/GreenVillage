@@ -15,82 +15,82 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom_produit = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $description_produit = null;
+    private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $photo_produit = null;
+    private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $prix_produit = null;
+    private ?string $prix = null;
 
-    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null;
+    private ?Modele $Modele = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomProduit(): ?string
+    public function getNom(): ?string
     {
-        return $this->nom_produit;
+        return $this->nom;
     }
 
-    public function setNomProduit(string $nom_produit): static
+    public function setNom(string $nom): static
     {
-        $this->nom_produit = $nom_produit;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getDescriptionProduit(): ?string
+    public function getImage(): ?string
     {
-        return $this->description_produit;
+        return $this->image;
     }
 
-    public function setDescriptionProduit(string $description_produit): static
+    public function setImage(string $image): static
     {
-        $this->description_produit = $description_produit;
+        $this->image = $image;
 
         return $this;
     }
 
-    public function getPhotoProduit(): ?string
+    public function getDescription(): ?string
     {
-        return $this->photo_produit;
+        return $this->description;
     }
 
-    public function setPhotoProduit(string $photo_produit): static
+    public function setDescription(string $description): static
     {
-        $this->photo_produit = $photo_produit;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getPrixProduit(): ?string
+    public function getPrix(): ?string
     {
-        return $this->prix_produit;
+        return $this->prix;
     }
 
-    public function setPrixProduit(string $prix_produit): static
+    public function setPrix(string $prix): static
     {
-        $this->prix_produit = $prix_produit;
+        $this->prix = $prix;
 
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getModele(): ?Modele
     {
-        return $this->categorie;
+        return $this->Modele;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function setModele(Modele $Modele): static
     {
-        $this->categorie = $categorie;
+        $this->Modele = $Modele;
 
         return $this;
     }

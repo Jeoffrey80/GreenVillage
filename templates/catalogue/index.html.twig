@@ -3,21 +3,24 @@
 {% block title %}Hello CatalogueController!{% endblock %}
 
 {% block body %}
-<div class="LOL">
-lolilolilolilol<br>
-lolilolilolilol<br>
-lolilolilolilol<br>
-lolilolilolilol<br>
-lolilolilolilol<br>
+<div class="pub">
+blablabla<br>
+blablabla<br>
+blablabla<br>
+blablabla<br>
 </div>
 <div class="row">
- {% for categorie in categories %}
+
+    {% for categorie in categories %}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 ">
             <div class="my-3 mx-3 text-center">
                 <a href="/categorie/{{categorie.id}}">
-                    {{ categorie.nom }}<br>
+                    {{ categorie.nomcategorie }}<br>
                     <img src="https://picsum.photos/200/150" alt="" class="img-fluid w-100">
                 </a>
             </div>
+        </div>
+    {% endfor %}
+
 </div>
 {% endblock %}

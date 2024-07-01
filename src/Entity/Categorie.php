@@ -27,19 +27,25 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $type_categorie = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'Categorie')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?self $categorie = null;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'sousCategories')]
+    private ?self $parent = null;
 
     /**
      * @var Collection<int, self>
      */
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'categorie')]
-    private Collection $Categorie;
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    private Collection $sousCategories;
+
+    /**
+     * @var Collection<int, Produit>
+     */
+    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'categorie')]
+    private Collection $produits;
 
     public function __construct()
     {
-        $this->Categorie = new ArrayCollection();
+        $this->sousCategories = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,37 +101,76 @@ class Categorie
         return $this;
     }
 
-    public function getCategorie(): ?self
+    public function getParent(): ?self
     {
-        return $this->categorie;
+        return $this->parent;
     }
 
-    public function setCategorie(?self $categorie): static
+    public function setParent(?self $parent): static
     {
-        $this->categorie = $categorie;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function addCategorie(self $categorie): static
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSousCategories(): Collection
     {
-        if (!$this->Categorie->contains($categorie)) {
-            $this->Categorie->add($categorie);
-            $categorie->setCategorie($this);
+        return $this->sousCategories;
+    }
+
+    public function addSousCategory(self $sousCategory): static
+    {
+        if (!$this->sousCategories->contains($sousCategory)) {
+            $this->sousCategories->add($sousCategory);
+            $sousCategory->setParent($this);
         }
 
         return $this;
     }
 
-    public function removeCategorie(self $categorie): static
+    public function removeSousCategory(self $sousCategory): static
     {
-        if ($this->Categorie->removeElement($categorie)) {
+        if ($this->sousCategories->removeElement($sousCategory)) {
             // set the owning side to null (unless already changed)
-            if ($categorie->getCategorie() === $this) {
-                $categorie->setCategorie(null);
+            if ($sousCategory->getParent() === $this) {
+                $sousCategory->setParent(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): static
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): static
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getCategorie() === $this) {
+                $produit->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

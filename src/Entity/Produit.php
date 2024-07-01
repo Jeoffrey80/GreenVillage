@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,7 +24,11 @@ class Produit
     private ?string $photo_produit = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $prix_achat = null;
+    private ?string $prix_produit = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
 
     public function getId(): ?int
     {
@@ -69,17 +71,27 @@ class Produit
         return $this;
     }
 
-    public function getPrixAchat(): ?string
+    public function getPrixProduit(): ?string
     {
-        return $this->prix_achat;
+        return $this->prix_produit;
     }
 
-    public function setPrixAchat(string $prix_achat): static
+    public function setPrixProduit(string $prix_produit): static
     {
-        $this->prix_achat = $prix_achat;
+        $this->prix_produit = $prix_produit;
 
         return $this;
     }
 
-   
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
 }

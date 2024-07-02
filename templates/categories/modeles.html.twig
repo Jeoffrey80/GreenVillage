@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modèles{% endblock %}
+
+{% block body %}
+    <h1>Modèles du sous-type {{ sousType.nom }}</h1>
+    <ul>
+        {% for modele in modeles %}
+            <li>
+                <a href="{{ path('produits', {familleId: sousType.type.famille.id, typeId: sousType.type.id, sousTypeId: sousType.id, modeleId: modele.id}) }}">{{ modele.nom }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

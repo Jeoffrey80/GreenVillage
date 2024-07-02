@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Familles{% endblock %}
+
+{% block body %}
+    <h1>Familles</h1>
+    <ul>
+        {% for famille in familles %}
+            <li>
+                <a href="{{ path('types', {familleId: famille.id}) }}">{{ famille.nom }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

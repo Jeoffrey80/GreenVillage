@@ -19,9 +19,9 @@ class Modele
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?SousType $SousType = null;
+    #[ORM\ManyToOne(targetEntity: SousType::class)]
+    #[ORM\JoinColumn(name: 'soustype_id', referencedColumnName: 'id')]
+    private ?SousType $sousType = null;
 
     public function getId(): ?int
     {
@@ -54,12 +54,12 @@ class Modele
 
     public function getSousType(): ?SousType
     {
-        return $this->SousType;
+        return $this->sousType;
     }
 
     public function setSousType(SousType $SousType): static
     {
-        $this->SousType = $SousType;
+        $this->sousType = $SousType;
 
         return $this;
     }

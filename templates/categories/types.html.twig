@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types{% endblock %}
+
+{% block body %}
+    <h1>Types de la famille {{ famille.nom }}</h1>
+    <ul>
+        {% for type in types %}
+            <li>
+                <a href="{{ path('sous_types', {familleId: famille.id, typeId: type.id}) }}">{{ type.nom }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

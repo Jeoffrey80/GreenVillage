@@ -19,9 +19,9 @@ class SousType
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Type $Type = null;
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id')]
+    private ?Type $type = null;
 
     public function getId(): ?int
     {
@@ -54,12 +54,12 @@ class SousType
 
     public function getType(): ?Type
     {
-        return $this->Type;
+        return $this->type;
     }
 
     public function setType(Type $Type): static
     {
-        $this->Type = $Type;
+        $this->type = $Type;
 
         return $this;
     }

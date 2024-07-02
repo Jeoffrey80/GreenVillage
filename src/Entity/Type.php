@@ -19,9 +19,9 @@ class Type
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Famille $Famille = null;
+    #[ORM\ManyToOne(targetEntity: Famille::class)]
+    #[ORM\JoinColumn(name: 'famille_id', referencedColumnName: 'id')]
+    private ?Famille $famille = null;
 
     public function getId(): ?int
     {
@@ -54,12 +54,12 @@ class Type
 
     public function getFamille(): ?Famille
     {
-        return $this->Famille;
+        return $this->famille;
     }
 
     public function setFamille(Famille $Famille): static
     {
-        $this->Famille = $Famille;
+        $this->famille = $Famille;
 
         return $this;
     }

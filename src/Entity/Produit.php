@@ -26,9 +26,9 @@ class Produit
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $prix = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Modele $Modele = null;
+    #[ORM\ManyToOne(targetEntity: Modele::class)]
+    #[ORM\JoinColumn(name: 'modele_id', referencedColumnName: 'id')]
+    private ?Modele $modele = null;
 
     public function getId(): ?int
     {
@@ -85,12 +85,12 @@ class Produit
 
     public function getModele(): ?Modele
     {
-        return $this->Modele;
+        return $this->modele;
     }
 
     public function setModele(Modele $Modele): static
     {
-        $this->Modele = $Modele;
+        $this->modele = $Modele;
 
         return $this;
     }

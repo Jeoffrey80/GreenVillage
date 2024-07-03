@@ -18,7 +18,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('adresse_mail')
             ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -49,10 +49,12 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom')
-            ->add('telephone')
-            ->add('adresse')
-            ->add('codepostal')
-            ->add('ville');
+            ->add('adresse_livraison')
+            ->add('adresse_facturation')
+            ->add('type_client', CheckboxType::class, [
+                'label' => 'Cocher la case si je suis professionnelle',
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

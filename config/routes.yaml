@@ -27,3 +27,8 @@ app_registration:
 app_categories:
     path: /categories
     controller: App\Controller\CategorieController::categories   
+
+Role_dashboard:
+    path: '/Role/dashboard'
+    controller: 'App\Controller\RoleController::dashboard'
+    methods: ['GET', 'POST']

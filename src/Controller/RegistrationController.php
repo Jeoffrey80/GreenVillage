@@ -1,4 +1,5 @@
 <?php
+// src/Controller/RegistrationController.php
 
 namespace App\Controller;
 
@@ -33,7 +34,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -41,26 +42,32 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Ajoute le rôle ROLE_CLIENT à l'utilisateur
-            $user->setRole(['ROLE_USER']);
+            // Set user role
+            $user->setRole('ROLE_USER');
+
+            // Set coefficient based on 'type_client' checkbox
+            if ($form->get('type_client')->getData()) {
+                $user->setCoefficient('40.00'); // Assuming coefficient is a decimal
+            } else {
+                $user->setCoefficient('10.00'); // Default coefficient
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed URL and email it to the user
+            // Generate a signed URL and email it to the user for email verification
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('Jeoffrey@gmail.com', 'Jeoffrey'))
+                    ->from(new Address('your_email@example.com', 'Your Name'))
                     ->to($user->getAdresseMail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('register/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_accueil');
+            return $this->redirectToRoute('app_categories');
         }
 
-        return $this->render('register/register.html.twig', [
+        return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -70,7 +77,6 @@ class RegistrationController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -79,9 +85,8 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse mail a été vérifié.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_accueil');
     }
 }

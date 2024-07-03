@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,7 +42,7 @@ class Client
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $coefficient = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable:true)]
     private ?string $reduc_pro = null;
 
     public function getId(): ?int
@@ -83,6 +84,11 @@ class Client
         $this->adresse_mail = $adresse_mail;
 
         return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->adresse_mail;
     }
 
     public function getAdresseLivraison(): ?string
@@ -162,10 +168,46 @@ class Client
         return $this->reduc_pro;
     }
 
-    public function setReducPro(string $reduc_pro): static
+    public function setReducPro(string $reduc_pro): self
     {
         $this->reduc_pro = $reduc_pro;
 
         return $this;
+    }
+
+    // Méthodes requises par UserInterface et PasswordAuthenticatedUserInterface
+
+    public function getRoles(): array
+    {
+        $roles = [$this->role ?: 'ROLE_USER'];
+
+        // garantit que chaque utilisateur a au moins ROLE_USER
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    public function getSalt(): ?string
+    {
+        // non nécessaire pour les applications utilisant bcrypt ou argon2i
+        return null;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->adresse_mail;
+    }
+
+    public function eraseCredentials()
+    {
+        // Si vous stockez des données temporaires ou sensibles dans l'utilisateur, effacez-les ici
+        // $this->plainPassword = null;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->adresse_mail;
     }
 }

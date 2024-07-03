@@ -13,7 +13,7 @@ class ProduitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // Ajoute un champ 'libelle' de type texte
-        $builder->add('Nom')
+        $builder->add('nom')
 
         // Ajoute un champ 'description' de type texte
             ->add('description')

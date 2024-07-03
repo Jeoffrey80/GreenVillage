@@ -1,14 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sous-Types{% endblock %}
+{% block title %}Sous-Type{% endblock %}
 
 {% block body %}
-    <h1>Sous-Types du type {{ type.nom }}</h1>
-    <ul>
-        {% for sousType in sousTypes %}
-            <li>
-                <a href="{{ path('modeles', {familleId: type.famille.id, typeId: type.id, sousTypeId: sousType.id}) }}">{{ sousType.nom }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="bg-beige py-5">
+        <div class="container">
+            <h1 class="mt-5 mb-4">Sous-Types</h1>
+            <div class="row">
+                {% for sousType in sousTypes %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            {% if sousType.image %}
+                                <img src="{{ asset('../assets/img/sous_type/' ~ sousType.image) }}" class="card-img-top" alt="{{ sousType.nom }}" width="300" height="200">
+                            {% else %}
+                                <img src="{{ asset('assets/img/default-image.png') }}" class="card-img-top" alt="Image par défaut" width="300" height="200">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ sousType.nom }}</h5>
+                <a href="{{ path('modeles', {familleId: type.famille.id, typeId: type.id, sousTypeId: sousType.id}) }}"class="btn btn-primary">Voir les modèles</a>
+            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

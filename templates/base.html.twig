@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Green Village{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block stylesheets %}
         {% endblock %}
@@ -39,6 +39,13 @@
             </li>
             </ul>
         </div>
+        </div>
+         <div class="ml-auto">
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+            {% endif %}
         </div>
             </nav>
         </div>

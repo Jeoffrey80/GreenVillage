@@ -1,0 +1,128 @@
+{% block body %}
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+ integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Couleur de fond */
+            margin: 0;
+        }
+
+        .navbar-custom {
+            margin-bottom: 0;
+        }
+
+        #formulaire {
+            background-color: #e9ecef; /* Couleur de fond de la div */
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .placers{
+            justify-content: center;
+            text-align: center;
+        }
+        .custom-input {
+            /* Styles personnalisés pour vos champs d'entrée */
+            width: 100%;
+            padding: 5px; /* Ajustez cette valeur selon vos besoins */
+            margin-bottom: 5px;
+            box-sizing: border-box;
+            color: black; /* Couleur du texte des champs */
+        }
+
+        .btn-primary {
+            /* Styles pour le bouton d'inscription */
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: black; /* Couleur du texte de la navbar */
+        }
+
+        .navbar-light .navbar-toggler-icon {
+            background-color: black; /* Couleur de l'icône du bouton de la navbar */
+        }
+
+        .navbar-light .navbar-toggler {
+            border-color: black; /* Couleur de la bordure du bouton de la navbar */
+        }
+
+        .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
+            background-color: black; /* Couleur de fond du bouton de la navbar au survol/focus */
+        }
+
+        .navbar-light .navbar-toggler:focus, .navbar-light .navbar-toggler:hover {
+            border-color: black; /* Couleur de la bordure du bouton de la navbar au survol/focus */
+        }
+    </style>
+    <div class="container mx-auto text-white" id="formulaire">
+        <h2 class="fst-italic text-black text-center mb-2">Inscription</h2>
+
+        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
+
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.email, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.nom, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.prenom, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.telephone, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.adresse, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.codepostal, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+        <div class="col-md-6 mb-2">
+            {{ form_row(registrationForm.ville, {'attr': {'class': 'custom-input'}}) }}
+        </div>
+
+        {{ form_row(registrationForm.RGPDConsent) }}
+
+        <button type="submit" class="btn btn-primary btn-lg text-white mt-3">Je m'inscris</button>
+        {{ form_end(registrationForm) }}
+    </div>
+    <p>Déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous !</a></p>
+    <br><br><br>
+    <div class="placers d-flex justify-content-center align-items-center flex-wrap" style="background-color: rgba(0, 0, 0, 0); background: none !important; margin: 0; padding: 0;">
+        <!-- Réseaux sociaux -->
+        <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-instagram fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-pinterest fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-twitter fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-linkedin fa-bounce"
+                    style="color: #000000;font-size:75px;"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-facebook fa-bounce"
+                    style="color: #000000;font-size:75px"></i></a>
+            <a class="taillelogors my-5 mx-5"><i class="fa-brands fa-youtube fa-bounce"
+                    style="color: #000000;font-size:75px"></i></a>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}

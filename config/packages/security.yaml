@@ -24,7 +24,12 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/Role, role: ROLE_CHEF}
+        - { path: ^/Role, role: ROLE_ADMIN}
+        - { path: ^/Contact, role: ROLE_USER}
 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_CHEF, ROLE_CLIENT]    
 when@test:
     security:
         password_hashers:

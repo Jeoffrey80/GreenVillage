@@ -1,25 +1,68 @@
+{# templates/catalogue/produit.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatalogueController!{% endblock %}
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .product-container {
+            background-color: #f8f9fa; /* Couleur de fond plus claire */
+            padding: 20px;
+            border-radius: 10px; /* Arrondir les coins */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+            margin: 20px auto;
+            max-width: 800px; /* Limite la largeur maximale */
+            display: flex; /* Utiliser flexbox pour aligner les éléments */
+            align-items: center; /* Centrer verticalement */
+        }
+        .product-image {
+            width: 200px; /* Largeur fixe de l'image */
+            height: auto; /* Hauteur automatique pour garder les proportions */
+            object-fit: cover; /* Recadre l'image pour qu'elle s'ajuste bien dans le cadre */
+            margin-right: 20px; /* Espacement à droite de l'image */
+            border-radius: 10px; /* Arrondir les coins de l'image */
+        }
+        .product-details {
+            flex: 1; /* Prend tout l'espace restant */
+            display: flex;
+            flex-direction: column; /* Disposer les éléments verticalement */
+            justify-content: space-between; /* Espacer les éléments de manière égale */
+            text-align: left; /* Aligner le texte à gauche */
+        }
+        .product-price, .product-description {
+            margin-bottom: 10px;
+        }
+        .btn-add-to-cart {
+            background-color: #28a745; /* Couleur de fond verte */
+            border-color: #28a745; /* Couleur de bordure verte */
+            color: white; /* Couleur du texte */
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition douce */
+            align-self: flex-end; /* Aligner le bouton à droite */
+        }
+        .btn-add-to-cart:hover {
+            background-color: #218838; /* Couleur de fond verte foncée */
+            border-color: #1e7e34; /* Couleur de bordure verte foncée */
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-12">
-        <h1>
-            {{produit.nom}}
-        </h1>
-    </div>
-<img src="{{ asset('../assets/img/Produit/' ~ prod.image ) }}" class="card-img-top" alt="{{ prod.nom }}">
-        <div class="col-12">
-            <div class="my-3 mx-3 text-center">
-                <div>
-                    {{produit.prix}}
+<div class="container mt-4">
+    <div class="product-container">
+        <img src="{{ asset('../assets/img/Produit/' ~ produit.image ) }}" class="product-image" alt="{{ produit.nom }}">
+        <div class="product-details">
+            <div>
+                <h1>{{ produit.nom }}</h1>
+                <div class="product-price">
+                    <strong>Prix: </strong>{{ produit.prix }} €
                 </div>
-                <div>
-                    {{produit.description}}
+                <div class="product-description">
+                    {{ produit.description }}
                 </div>
             </div>
+            <a href="/add/{{produit.id}}" class="btn btn-primary btn-add-to-cart">Ajouter au panier</a>
         </div>
-
+    </div>
 </div>
 {% endblock %}

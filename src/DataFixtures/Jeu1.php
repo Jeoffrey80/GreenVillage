@@ -51,10 +51,10 @@ class Jeu1 extends Fixture
         $sousCategorie13->setParent($categorie1);
 
         $produit3 = new Produit();
-        $produit3->setNom('Startone Student I Violin Set 4/4');
-        $produit3->setImage('violon2.png');
-        $produit3->setDescription('Set violon 4/4');
-        $produit3->setPrix('79');
+        $produit3->setNom('Thomann Classic Cello Set 4/4');
+        $produit3->setImage('violoncelle2.png');
+        $produit3->setDescription('Les réglages fins de cet instrument sont effectués en Allemagne dans les ateliers de lutherie Thomann.');
+        $produit3->setPrix('469');
         $sousCategorie13->addProduit($produit3);
         $categorie1->addSousCategory($sousCategorie13);
 

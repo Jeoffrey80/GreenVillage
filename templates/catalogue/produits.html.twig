@@ -1,28 +1,42 @@
+{# templates/catalogue/produits.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatalogueController!{% endblock %}
+{% block title %}Produits de {{ categorie.nom }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card-img-top {
+            width: 100%; /* Ajuste l'image pour qu'elle prenne toute la largeur de la carte */
+            height: 200px; /* Hauteur fixe pour toutes les images */
+            object-fit: cover; /* Recadre l'image pour qu'elle s'ajuste bien dans le cadre */
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-12">
-        <h1>
-            {{categorie.nom}}
-        </h1>
-    </div>
-
-    {% for prod in categorie.produits %}
-        <div class="col-12">
-            <div class="my-3 mx-3 text-center">
-                <a href="/produit/{{prod.id}}">
-                    <h2>{{ prod.nom }}</h2>
-                    <div>
-                        {{prod.prix}}
+<div class="container mt-4">
+    <h1>Produits de {{ categorie.nom }}</h1>
+    <div class="row">
+        {% for prod in categorie.produits %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <a href="{{ path('app_produit', {'id': prod.id}) }}">
+                        <img src="{{ asset('../assets/img/Produit/' ~ prod.image ) }}" class="card-img-top" alt="{{ prod.nom }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ prod.nom }}</h5>
+                            <p class="card-text">{{ prod.prix }} €</p>
+                        </div>
+                    </a>
+                    <div class="card-footer text-center">
+                        {# <a href="/add/{{prod.id}}">Ajouter au panier</a> #}
+                        <a href="/add/{{prod.id}}" class="btn btn-primary">Ajouter au panier</a>
                     </div>
-                </a>
-                <a href="/add/{{prod.id}}">Ajouter au panier</a>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
+
+

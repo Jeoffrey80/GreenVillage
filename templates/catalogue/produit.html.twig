@@ -3,19 +3,13 @@
 {% block title %}Hello CatalogueController!{% endblock %}
 
 {% block body %}
-<div class="pub">
-blablabla<br>
-blablabla<br>
-blablabla<br>
-blablabla<br>
-</div>
 <div class="row">
     <div class="col-12">
         <h1>
             {{produit.nom}}
         </h1>
     </div>
-
+<img src="{{ asset('../assets/img/Produit/' ~ prod.image ) }}" class="card-img-top" alt="{{ prod.nom }}">
         <div class="col-12">
             <div class="my-3 mx-3 text-center">
                 <div>

@@ -1,7 +1,19 @@
+{# templates/catalogue/sous_categories.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}
 Sous-Catégories de {{ categorie.nom }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card-img-top {
+            width: 100%; /* Ajuste l'image pour qu'elle prenne toute la largeur de la carte */
+            height: 200px; /* Hauteur fixe pour toutes les images */
+            object-fit: cover; /* Recadre l'image pour qu'elle s'ajuste bien dans le cadre */
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -11,7 +23,7 @@ Sous-Catégories de {{ categorie.nom }}
         {% for sousCategorie in sousCategories %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card">
-                    <img src="{{ asset('/img/default-category.jpg') }}" class="card-img-top" alt="{{ sousCategorie.nom }}">
+                    <img src="{{ asset('../assets/img/SousCategorie/' ~ sousCategorie.image ) }}" class="card-img-top" alt="{{ sousCategorie.nom }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sousCategorie.nom }}</h5>
                         <a href="{{ path('app_produits', {'id': sousCategorie.id}) }}" class="btn btn-primary">Voir les Produits</a>

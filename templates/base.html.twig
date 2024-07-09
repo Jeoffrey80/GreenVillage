@@ -12,11 +12,11 @@
                 display: flex;
                 flex-direction: column;
                 min-height: 100vh; /* Force le corps à remplir la hauteur de la fenêtre */
+                margin: 0;
+                padding: 0;
                 font-family: 'Arial', sans-serif; /* Choix de la police */
                 background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Dégradé de fond */
                 color: #343a40; /* Couleur du texte */
-                margin: 0;
-                padding: 0;
             }
             .content {
                 flex: 1; /* Fait en sorte que le contenu prenne tout l'espace disponible */
@@ -29,9 +29,8 @@
                 padding: 20px 0; /* Espacement intérieur haut et bas */
                 text-align: center; /* Centre le texte */
                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Ombre pour le pied de page */
-                position: fixed; /* Position fixe */
+                position: relative; /* Position relative */
                 bottom: 0; /* En bas de la fenêtre */
-                left: 0; /* Aligné à gauche */
             }
             .navbar {
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre pour la barre de navigation */

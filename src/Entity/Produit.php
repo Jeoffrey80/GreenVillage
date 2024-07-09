@@ -20,15 +20,15 @@ class Produit
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $prix = null;
 
-    #[ORM\ManyToOne(targetEntity: Modele::class)]
-    #[ORM\JoinColumn(name: 'modele_id', referencedColumnName: 'id')]
-    private ?Modele $modele = null;
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
 
     public function getId(): ?int
     {
@@ -64,7 +64,7 @@ class Produit
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -83,14 +83,14 @@ class Produit
         return $this;
     }
 
-    public function getModele(): ?Modele
+    public function getCategorie(): ?Categorie
     {
-        return $this->modele;
+        return $this->categorie;
     }
 
-    public function setModele(Modele $Modele): static
+    public function setCategorie(?Categorie $categorie): static
     {
-        $this->modele = $Modele;
+        $this->categorie = $categorie;
 
         return $this;
     }

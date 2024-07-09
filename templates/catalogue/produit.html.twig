@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CatalogueController!{% endblock %}
+
+{% block body %}
+<div class="pub">
+blablabla<br>
+blablabla<br>
+blablabla<br>
+blablabla<br>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h1>
+            {{produit.nom}}
+        </h1>
+    </div>
+
+        <div class="col-12">
+            <div class="my-3 mx-3 text-center">
+                <div>
+                    {{produit.prix}}
+                </div>
+                <div>
+                    {{produit.description}}
+                </div>
+            </div>
+        </div>
+
+</div>
+{% endblock %}

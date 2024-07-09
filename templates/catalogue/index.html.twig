@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: antiquewhite;
+        font-family: Arial, sans-serif;
+    }
+
+    .welcome-container {
+        text-align: center;
+        padding: 50px 0;
+    }
+
+    .welcome-container h1 {
+        font-size: 3em;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .carousels-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 50px 0;
+        flex-wrap: wrap;
+    }
+
+    .carousel {
+        width: 45%;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        overflow: hidden; /* Pour cacher les éléments qui dépassent du carrousel */
+    }
+
+    .carousel img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .carousel-indicators button {
+        background-color: #333;
+        border: none;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .carousel-indicators button.active {
+        background-color: #555;
+    }
+</style>
+
+<div class="welcome-container">
+    {% if app.user %}
+        <h1>Bonjour {{ app.user.prenom }}</h1>
+    {% else %}
+        <h1>Bonjour Visiteur</h1>
+    {% endif %}
+</div>
+
+<div class="carousels-container">
+    <div id="carousel1" class="carousel">
+        <h2>Produits</h2>
+        <div class="carousel-inner" id="carousel1-images">
+            <!-- Les produits seront injectés ici par JavaScript -->
+        </div>
+        <div class="carousel-indicators" id="carousel1-indicators">
+            <!-- Les indicateurs seront injectés ici par JavaScript -->
+        </div>
+    </div>
+
+    <div id="carousel2" class="carousel">
+        <h2>Catégories</h2>
+        <div class="carousel-inner" id="carousel2-images">
+        </div>
+        <div class="carousel-indicators" id="carousel2-indicators">
+            <!-- Les indicateurs seront injectés ici par JavaScript -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            // Récupérer les produits
+            const responseProducts = await fetch('{{ path("get_products") }}');
+            if (!responseProducts.ok) {
+                throw new Error('Erreur lors de la récupération des produits');
+            }
+            const products = await responseProducts.json();
+            createCarousel('carousel1', products, true);
+
+            // Récupérer les catégories
+            const responseCategories = await fetch('{{ path("get_categories") }}');
+            if (!responseCategories.ok) {
+                throw new Error('Erreur lors de la récupération des catégories');
+            }
+            const categories = await responseCategories.json();
+            createCarousel('carousel2', categories, false);
+
+        } catch (error) {
+            console.error('Une erreur est survenue :', error.message);
+        }
+    });
+
+    function createCarousel(id, items, isProduct) {
+        const carouselImages = document.getElementById(`${id}-images`);
+        const carouselIndicators = document.getElementById(`${id}-indicators`);
+
+        items.forEach((item, index) => {
+            // Créer l'image du produit ou de la catégorie
+            const imgElem = document.createElement('img');
+            imgElem.src = '{{ asset("assets/img/") }}' + item.image;
+            imgElem.alt = item.nom;
+            imgElem.className = 'carousel-item' + (index === 0 ? ' active' : '');
+
+            // Créer le lien autour de l'image
+            const linkElem = document.createElement('a');
+            if (isProduct) {
+                linkElem.href = `{{ path('app_produit', {'id': '${item.id}'}) }}`;
+            } else {
+                linkElem.href = `{{ path('app_categorie', {'id': '${item.id}'}) }}`;
+            }
+            linkElem.appendChild(imgElem);
+
+            // Ajouter l'élément d'image au carrousel
+            carouselImages.appendChild(linkElem);
+
+            // Créer l'indicateur pour le carrousel
+            const indicator = document.createElement('button');
+            indicator.className = (index === 0 ? 'active' : '');
+            indicator.addEventListener('click', () => {
+                document.querySelectorAll(`#${id} .carousel-item`).forEach(item => item.classList.remove('active'));
+                document.querySelectorAll(`#${id}-indicators button`).forEach(btn => btn.classList.remove('active'));
+                imgElem.classList.add('active');
+                indicator.classList.add('active');
+            });
+
+            carouselIndicators.appendChild(indicator);
+        });
+    }
+</script>
+{% endblock %}

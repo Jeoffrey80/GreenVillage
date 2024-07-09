@@ -24,11 +24,26 @@ app_registration:
     path: '/register'
     controller: 'App\Controller\RegistrationController::register'
 
-app_categories:
-    path: /categories
-    controller: App\Controller\CategorieController::categories   
-
 Role_dashboard:
     path: '/Role/dashboard'
     controller: 'App\Controller\RoleController::dashboard'
     methods: ['GET', 'POST']
+
+product_detail:
+    path: /produit/{id}
+    controller: App\Controller\ProductController::show
+    methods: GET
+
+get_products:
+    path: /get-products
+    controller: App\Controller\CatalogueController::getProducts
+
+get_categories:
+    path: /get-categories
+    controller: App\Controller\CatalogueController::getCategories
+
+app_categories:
+    path: /categories
+    controller: App\Controller\CatalogueController::categories
+    methods: GET
+

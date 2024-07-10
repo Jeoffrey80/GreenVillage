@@ -6,32 +6,25 @@
 <div class="container mt-4">
     <h1>Mon Panier</h1>
     <hr>
-    <div class="row">
+    <div>
         {% if panier is empty %}
-            <div class="col-12">
-                <p>Votre panier est vide.</p>
-            </div>
+            <p>Votre panier est vide.</p>
         {% else %}
+            <h2>Panier</h2>
             {% for produit in panier %}
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card">
-                        <img src="{{ asset('path_to_your_product_image') }}" class="card-img-top" alt="{{ produit.nom }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ produit.nom }}</h5>
-                            <p class="card-text">{{ produit.description }}</p>
-                            <p class="card-text">{{ produit.prix }} €</p>
-                            <p class="card-text">Quantité: {{ produit.quantite }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ path('app_add', {'id': produit.id}) }}" class="btn btn-primary">+</a>
-                                <a href="{{ path('app_del', {'id': produit.id}) }}" class="btn btn-primary">-</a>
-                            </div>
-                        </div>
+                <div>
+                    <h3>{{ produit.nom }}</h3>
+                    <div>{{ produit.description }}</div>
+                    <div>{{ produit.prix }}</div>
+                    <div class="fw-bold">Quantité: {{ produit.quantite }}</div>
+                    <div>
+                        <a href="{{ path('app_add', {'id': produit.id}) }}" class="btn btn-primary">+</a>
+                        <a href="{{ path('app_del', {'id': produit.id}) }}" class="btn btn-primary">-</a>
                     </div>
+                    <hr>
                 </div>
             {% endfor %}
-            <div class="col-12 mt-3">
-                <a href="{{ path('app_clear') }}" class="btn btn-danger">Vider le Panier</a>
-            </div>
+            <a href="{{ path('app_clear') }}" class="btn btn-danger mt-3">Vider le Panier</a>
         {% endif %}
     </div>
 </div>

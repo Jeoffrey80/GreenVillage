@@ -47,3 +47,7 @@ app_categories:
     controller: App\Controller\CatalogueController::categories
     methods: GET
 
+modifier_produit:
+    path: /modifier/{id}
+    controller: App\Controller\RoleController::modifierProduit
+    methods: ['GET', 'POST']

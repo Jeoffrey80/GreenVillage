@@ -1,49 +1,54 @@
 <?php
+// src/Form/ProduitType.php
 
 namespace App\Form;
 
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Doctrine\ORM\EntityRepository;
 
 class ProduitType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // Ajoute un champ 'libelle' de type texte
-        $builder->add('nom')
-
-        // Ajoute un champ 'description' de type texte
+        $builder
+            ->add('nom')
             ->add('description')
-
-        // Ajoute un champ 'prix' de type texte
             ->add('prix')
-
-        // Ajoute un champ 'active' de type checkbox
-            ->add('active')
-
-        // Ajoute un champ 'categorie' de type texte
-            ->add('categorie');
-
-        // Ajoute le champ 'image' de type FileType uniquement si l'option 'modifier_image' est true
-        if ($options['modifier_image'] ?? true) {
-            $builder->add('image', FileType::class, [
-                'label' => 'Image du produit',
+            ->add('categorie', null, [
+                'class' => Categorie::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.parent IS NOT NULL') // Filtrer les catégories avec parent_id non null
+                        ->orderBy('c.nom', 'ASC'); // Optionnel : trier par nom de catégorie
+                },
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir une catégorie',
+                'required' => true, // Rendre le champ obligatoire
+                'attr' => ['class' => 'form-control'],
             ]);
+
+        if ($options['modifier_image']) {
+            $builder
+                ->add('image', FileType::class, [
+                    'label' => 'Image du produit',
+                    'required' => false,
+                    'attr' => ['class' => 'form-control-file'],
+                ]);
         }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        // Configure les options du formulaire, notamment pour traiter un objet de la classe Plats
         $resolver->setDefaults([
             'data_class' => Produit::class,
             'modifier_image' => true,
         ]);
 
-        // Permet uniquement le type 'bool' pour l'option 'modifier_image'
         $resolver->setAllowedTypes('modifier_image', 'bool');
     }
 }

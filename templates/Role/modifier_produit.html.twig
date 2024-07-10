@@ -9,14 +9,35 @@
 
     {# Afficher le formulaire de modification du plat #}
     {{ form_start(form) }}
-    {{ form_row(form.libelle) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.prix) }}
-    {{ form_row(form.categorie) }}
-    {{ form_row(form.active) }}
+
+    <div class="form-group">
+        {{ form_label(form.nom, 'Libellé') }}
+        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.prix, 'Prix') }}
+        {{ form_widget(form.prix, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.categorie, 'Catégorie') }}
+        {{ form_widget(form.categorie, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    {# <div class="form-group">
+        {{ form_label(form.image, 'Image du plat') }}
+        {{ form_widget(form.image, { 'attr': {'class': 'form-control-file'} }) }}
+    </div> #}
+
     {{ form_row(form._token) }}
 
-    <button type="submit">Modifier le plat</button>
+    <button type="submit" class="btn btn-primary">Modifier le plat</button>
 
     {{ form_end(form) }}
 {% endblock %}

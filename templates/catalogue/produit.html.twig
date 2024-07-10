@@ -1,4 +1,3 @@
-{# templates/catalogue/produit.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ produit.nom }}{% endblock %}
@@ -50,7 +49,7 @@
 {% block body %}
 <div class="container mt-4">
     <div class="product-container">
-        <img src="{{ asset('../assets/img/Produit/' ~ produit.image ) }}" class="product-image" alt="{{ produit.nom }}">
+        <img src="{{ asset(produit.image) }}" class="product-image" alt="{{ produit.nom }}">
         <div class="product-details">
             <div>
                 <h1>{{ produit.nom }}</h1>
@@ -61,7 +60,7 @@
                     {{ produit.description }}
                 </div>
             </div>
-            <a href="/add/{{produit.id}}" class="btn btn-primary btn-add-to-cart">Ajouter au panier</a>
+            <a href="/add/{{ produit.id }}" class="btn btn-primary btn-add-to-cart">Ajouter au panier</a>
         </div>
     </div>
 </div>

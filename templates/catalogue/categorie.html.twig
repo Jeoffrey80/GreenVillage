@@ -10,6 +10,7 @@
             width: 100%; /* Ajuste l'image pour qu'elle prenne toute la largeur de la carte */
             height: 200px; /* Hauteur fixe pour toutes les images */
             object-fit: cover; /* Recadre l'image pour qu'elle s'ajuste bien dans le cadre */
+            border-radius: 10px; /* Coins arrondis */
         }
     </style>
 {% endblock %}
@@ -21,7 +22,7 @@
         {% for categorie in categories %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card">
-                    <img src="{{ asset('../assets/img/Categorie/' ~ categorie.image ) }}" class="card-img-top" alt="{{ categorie.nom }}">
+                    <img src="{{ asset(categorie.image) }}" class="card-img-top" alt="{{ categorie.nom }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ categorie.nom }}</h5>
                         <a href="{{ path('app_sous_categories', {'id': categorie.id}) }}" class="btn btn-primary">Voir les Sous-Catégories</a>

@@ -27,31 +27,45 @@ class CatalogueController extends AbstractController
         $categories = $categorieRepository->findBy(['parent' => null]);
         $produits = $produitRepository->findAll();
 
+        // Sélectionner 2 produits aléatoires
+        $randomProducts = $this->selectRandomEntities($produits, 2);
+
         return $this->render('catalogue/index.html.twig', [
             'categories' => $categories,
             'produits' => $produits,
+            'randomProducts' => $randomProducts,
         ]);
     }
 
     #[Route('/categorie/{id}', name: 'app_categorie')]
     public function categorie(Categorie $categorie): Response
     {
-        $sousCategories = $categorie->getSousCategories();
+        // Convertir la PersistentCollection en tableau
+        $sousCategories = $categorie->getSousCategories()->toArray();
+
+        // Sélectionner 2 sous-catégories aléatoires
+        $randomSubCategories = $this->selectRandomEntities($sousCategories, 2);
 
         return $this->render('catalogue/categorie.html.twig', [
             'categorie' => $categorie,
             'sousCategories' => $sousCategories,
+            'randomSubCategories' => $randomSubCategories,
         ]);
     }
 
     #[Route('/produits/{id}', name: 'app_produits')]
     public function produits(Categorie $categorie): Response
     {
-        $produits = $categorie->getProduits();
+        // Convertir la PersistentCollection en tableau
+        $produits = $categorie->getProduits()->toArray();
+
+        // Sélectionner 2 produits aléatoires
+        $randomProducts = $this->selectRandomEntities($produits, 2);
 
         return $this->render('catalogue/produits.html.twig', [
             'categorie' => $categorie,
             'produits' => $produits,
+            'randomProducts' => $randomProducts,
         ]);
     }
 
@@ -112,12 +126,20 @@ class CatalogueController extends AbstractController
     #[Route('/sous-categories/{id}', name: 'app_sous_categories')]
     public function sousCategories(Categorie $categorie): Response
     {
-        $sousCategories = $categorie->getSousCategories();
+        // Convertir la PersistentCollection en tableau
+        $sousCategories = $categorie->getSousCategories()->toArray();
 
         return $this->render('catalogue/sous_categories.html.twig', [
             'categorie' => $categorie,
             'sousCategories' => $sousCategories,
         ]);
     }
-}
 
+    // Méthode générique pour sélectionner des entités aléatoires
+    private function selectRandomEntities(array $entities, int $count): array
+    {
+        shuffle($entities); // Mélanger les entités
+
+        return array_slice($entities, 0, $count); // Sélectionner les premières $count entités
+    }
+}

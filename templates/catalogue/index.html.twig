@@ -76,6 +76,35 @@
         .carousel-indicators button.active {
             background-color: #555;
         }
+
+        .recommended-products {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .recommended-product {
+            text-align: center;
+            width: 30%;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .recommended-product img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .recommended-product h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
     </style>
 {% endblock %}
 
@@ -120,6 +149,18 @@
             {% endfor %}
         </div>
     </div>
+</div>
+
+<div class="recommended-products">
+    {% for randomProduct in randomProducts %}
+        <div class="recommended-product">
+            <h3>Ce qui pourrait vous plaire...</h3>
+            <a href="{{ path('app_produit', {'id': randomProduct.id}) }}">
+                <img src="{{ asset(randomProduct.image) }}" alt="{{ randomProduct.nom }}">
+                <p>{{ randomProduct.nom }}</p>
+            </a>
+        </div>
+    {% endfor %}
 </div>
 
 <script>

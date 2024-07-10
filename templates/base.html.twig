@@ -1,3 +1,4 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -97,23 +98,25 @@
                         <a class="nav-link" href="{{ path('app_categories') }}">Catégorie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                     </li>
                 </ul>
             </div>
             <div class="d-flex align-items-center">
+                {% if app.user %}
+                    {% if is_granted('ROLE_CHEF') or is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('Role_dashboard') }}" class="btn btn-primary me-2">Dashboard</a>
+                    {% endif %}
+                {% endif %}
                 <a href="/panier" class="panier-link">
                     <i class="fas fa-shopping-cart panier-icon"></i>
                     Panier &nbsp; 
                     <span>{{ app.session.get("panier") | length }}</span>
                 </a>
                 {% if app.user %}
-                    {% if is_granted('ROLE_CHEF') or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('Role_dashboard') }}" class="btn btn-primary">Dashboard</a>
-                    {% endif %}
-                    <a href="{{ path('app_logout') }}" class="btn btn-primary">Déconnexion</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-primary ms-2">Déconnexion</a>
                 {% else %}
-                    <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary ms-2">Connexion</a>
                 {% endif %}
             </div>
         </div>

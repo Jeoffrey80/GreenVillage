@@ -23,12 +23,12 @@ class ProduitType extends AbstractType
                 'class' => Categorie::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                        ->where('c.parent IS NOT NULL') // Filtrer les catégories avec parent_id non null
-                        ->orderBy('c.nom', 'ASC'); // Optionnel : trier par nom de catégorie
+                        ->where('c.parent IS NOT NULL')
+                        ->orderBy('c.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
                 'placeholder' => 'Choisir une catégorie',
-                'required' => true, // Rendre le champ obligatoire
+                'required' => true,
                 'attr' => ['class' => 'form-control'],
             ]);
 
@@ -37,6 +37,7 @@ class ProduitType extends AbstractType
                 ->add('image', FileType::class, [
                     'label' => 'Image du produit',
                     'required' => false,
+                    'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
                     'attr' => ['class' => 'form-control-file'],
                 ]);
         }

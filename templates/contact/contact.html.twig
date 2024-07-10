@@ -1,0 +1,27 @@
+{# templates/contact/contact.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Informations{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-4">Mes Informations</h1>
+        <div class="bg-light p-4 rounded shadow-sm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <p><strong>Nom :</strong> {{ client.nom }}</p>
+                    <p><strong>Prénom :</strong> {{ client.prenom }}</p>
+                    <p><strong>Email :</strong> {{ client.email }}</p>
+                    <p><strong>Adresse de livraison :</strong> {{ client.adresseLivraison }}</p>
+                    <p><strong>Adresse de facturation :</strong> {{ client.adresseFacturation }}</p>
+                    <p><strong>Coefficient :</strong> {{ client.coefficient }}</p>
+                    {% if client.reducPro %}
+                        <p><strong>Réduction professionnelle :</strong> {{ client.reducPro }}</p>
+                    {% endif %}
+                    <p><strong>Type de client :</strong> {{ client.typeClient ? 'Professionnel' : 'Particulier' }}</p>
+                </div>
+            </div>
+            <a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+        </div>
+    </div>
+{% endblock %}

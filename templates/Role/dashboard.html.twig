@@ -29,9 +29,18 @@
                     {{ form_label(form.categorie, 'Catégorie') }}
                     {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="mb-3">
-                    {{ form_label(form.image, 'Image du produit') }}
-                    {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_label(form.image, 'Image du produit') }}
+                        {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.vars.value.image %}
+                            <img src="{{ asset(form.vars.value.image) }}" class="img-thumbnail" alt="Aperçu de l'image" style="max-width: 100%; max-height: 150px;">
+                        {% else %}
+                            <p class="text-muted">Aucune image sélectionnée</p>
+                        {% endif %}
+                    </div>
                 </div>
                 {{ form_widget(form._token) }}
                 <div class="text-end">
@@ -48,6 +57,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Libellé</th>
                             <th>Description</th>
                             <th>Prix</th>
@@ -58,6 +68,13 @@
                     <tbody>
                         {% for produit in produits %}
                             <tr>
+                                <td>
+                                    {% if produit.image %}
+                                        <img src="{{ asset(produit.image) }}" class="img-thumbnail" alt="{{ produit.nom }}" style="max-width: 100%; max-height: 50px;">
+                                    {% else %}
+                                        <p class="text-muted">Pas d'image</p>
+                                    {% endif %}
+                                </td>
                                 <td>{{ produit.nom }}</td>
                                 <td>{{ produit.description }}</td>
                                 <td>{{ produit.prix }} euros</td>

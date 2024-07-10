@@ -34,7 +34,7 @@ class RoleController extends AbstractController
 
                 try {
                     $imageFile->move(
-                        $this->getParameter('images_directory'), // Assurez-vous que 'images_directory' pointe vers votre répertoire d'images configuré
+                        $this->getParameter('images_directory'),
                         $newFilename
                     );
 
@@ -64,6 +64,8 @@ class RoleController extends AbstractController
     public function modifierProduit(Request $request, EntityManagerInterface $entityManager, Produit $produit): Response
     {
         $this->denyAccessUnlessGranted('ROLE_CHEF');
+
+        $imagePath = $produit->getImage();
     
         $form = $this->createForm(ProduitType::class, $produit, ['modifier_image' => true]);
         $form->handleRequest($request);
@@ -87,23 +89,21 @@ class RoleController extends AbstractController
                     $this->addFlash('error', 'Une erreur s\'est produite lors du téléchargement du fichier.');
                     return $this->redirectToRoute('modifier_produit', ['id' => $produit->getId()]);
                 }
-            }
-    
-            // Valider que l'image a bien été téléchargée
-            if (!$produit->getImage()) {
-                $this->addFlash('error', 'Veuillez télécharger une image.');
-                return $this->redirectToRoute('modifier_produit', ['id' => $produit->getId()]);
+            } else {
+                // Garder l'image actuelle si aucune nouvelle image n'est téléchargée
+                $produit->setImage($imagePath);
             }
     
             $entityManager->flush();
     
-            $this->addFlash('success', 'Le plat a été modifié avec succès.');
+            $this->addFlash('success', 'Le produit a été modifié avec succès.');
     
             return $this->redirectToRoute('Role_dashboard');
         }
     
         return $this->render('Role/modifier_produit.html.twig', [
             'form' => $form->createView(),
+            'produit' => $produit,
         ]);
     }
 
@@ -120,4 +120,3 @@ class RoleController extends AbstractController
         return $this->redirectToRoute('Role_dashboard');
     }
 }
-

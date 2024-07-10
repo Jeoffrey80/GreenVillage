@@ -5,28 +5,23 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'contact')]
-    public function index(): Response
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(Security $security): Response
     {
         // Récupérer l'utilisateur connecté
-        $utilisateur = $this->getUser();
+        $user = $security->getUser();
 
-        // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
-        if (!$utilisateur) {
-            return $this->redirectToRoute('app_login');
+        // Vérifier si l'utilisateur est connecté et est un client
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
         }
 
-        // Récupérer d'autres données de l'utilisateur depuis la base de données
-        // En utilisant le repository, par exemple : $utilisateurRepository->find($utilisateur->getId());
-
-        // ... votre logique de traitement de la page de contact ici ...
-
-        return $this->render('contact/index.html.twig', [
-            'utilisateur' => $utilisateur,
-            // ... d'autres données à passer à la vue ...
+        return $this->render('contact/contact.html.twig', [
+            'client' => $user,
         ]);
     }
 }

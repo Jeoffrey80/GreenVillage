@@ -1,43 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Modifier Plat
+    Modifier Produit
 {% endblock %}
 
 {% block body %}
-    <h1>Modifier Plat</h1>
+    <h1 class="text-center my-4">Modifier Produit</h1>
 
-    {# Afficher le formulaire de modification du plat #}
-    {{ form_start(form) }}
+    <div class="d-flex justify-content-center">
+        <div class="bg-light p-4 rounded" style="background-color: beige; max-width: 800px;">
+            <div class="d-flex align-items-start">
+                {# Afficher l'image du produit à gauche #}
+                <div class="me-4">
+                    <img src="{{ asset(produit.image) }}" alt="{{ produit.nom }}" class="img-fluid rounded" style="max-width: 200px;">
+                </div>
 
-    <div class="form-group">
-        {{ form_label(form.nom, 'Libellé') }}
-        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+                {# Afficher le formulaire de modification du produit à droite #}
+                <div>
+                    {{ form_start(form) }}
+
+                    <div class="form-group">
+                        {{ form_label(form.nom, 'Libellé') }}
+                        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.description, 'Description') }}
+                        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.prix, 'Prix') }}
+                        {{ form_widget(form.prix, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.categorie, 'Catégorie') }}
+                        {{ form_widget(form.categorie, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.image, 'Image du produit') }}
+                        {{ form_widget(form.image, { 'attr': {'class': 'form-control-file'} }) }}
+                    </div>
+
+                    {{ form_row(form._token) }}
+
+                    <button type="submit" class="btn btn-primary mt-3">Modifier le produit</button>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+            {# Ajouter un bouton "Retour" en dessous du formulaire #}
+            <div class="mt-3">
+                <button onclick="window.history.back();" class="btn btn-secondary">Retour</button>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        {{ form_label(form.description, 'Description') }}
-        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.prix, 'Prix') }}
-        {{ form_widget(form.prix, { 'attr': {'class': 'form-control'} }) }}
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.categorie, 'Catégorie') }}
-        {{ form_widget(form.categorie, { 'attr': {'class': 'form-control'} }) }}
-    </div>
-
-    {# <div class="form-group">
-        {{ form_label(form.image, 'Image du plat') }}
-        {{ form_widget(form.image, { 'attr': {'class': 'form-control-file'} }) }}
-    </div> #}
-
-    {{ form_row(form._token) }}
-
-    <button type="submit" class="btn btn-primary">Modifier le plat</button>
-
-    {{ form_end(form) }}
 {% endblock %}

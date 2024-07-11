@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Entity;
 
-use App\Repository\BonlivraisonRepository;
+use App\Repository\BonLivraisonRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity(repositoryClass: BonlivraisonRepository::class)]
-class Bonlivraison
+#[ORM\Entity(repositoryClass: BonLivraisonRepository::class)]
+class BonLivraison
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,27 +15,21 @@ class Bonlivraison
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $numero_bon = null;
+    private ?int $numbon = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $details = null;
+    private ?string $detailbon = null;
 
     #[ORM\Column]
     private ?int $quantite = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $prix_unitaire = null;
+    private ?string $prix_unitaireHT = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $pu_hors_taxe = null;
+    private ?string $totalHT = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $total_ht = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_creation = null;
-
-    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'bonlivraisons')]
+    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'bonLivraisons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commande $commande = null;
 
@@ -45,26 +38,26 @@ class Bonlivraison
         return $this->id;
     }
 
-    public function getNumeroBon(): ?int
+    public function getNumbon(): ?int
     {
-        return $this->numero_bon;
+        return $this->numbon;
     }
 
-    public function setNumeroBon(int $numero_bon): static
+    public function setNumbon(int $numbon): static
     {
-        $this->numero_bon = $numero_bon;
+        $this->numbon = $numbon;
 
         return $this;
     }
 
-    public function getDetails(): ?string
+    public function getDetailbon(): ?string
     {
-        return $this->details;
+        return $this->detailbon;
     }
 
-    public function setDetails(string $details): static
+    public function setDetailbon(string $detailbon): static
     {
-        $this->details = $details;
+        $this->detailbon = $detailbon;
 
         return $this;
     }
@@ -81,50 +74,26 @@ class Bonlivraison
         return $this;
     }
 
-    public function getPrixUnitaire(): ?string
+    public function getPrixUnitaireHT(): ?string
     {
-        return $this->prix_unitaire;
+        return $this->prix_unitaireHT;
     }
 
-    public function setPrixUnitaire(string $prix_unitaire): static
+    public function setPrixUnitaireHT(string $prix_unitaireHT): static
     {
-        $this->prix_unitaire = $prix_unitaire;
+        $this->prix_unitaireHT = $prix_unitaireHT;
 
         return $this;
     }
 
-    public function getPuHorsTaxe(): ?string
+    public function getTotalHT(): ?string
     {
-        return $this->pu_hors_taxe;
+        return $this->totalHT;
     }
 
-    public function setPuHorsTaxe(string $pu_hors_taxe): static
+    public function setTotalHT(string $totalHT): static
     {
-        $this->pu_hors_taxe = $pu_hors_taxe;
-
-        return $this;
-    }
-
-    public function getTotalHt(): ?string
-    {
-        return $this->total_ht;
-    }
-
-    public function setTotalHt(string $total_ht): static
-    {
-        $this->total_ht = $total_ht;
-
-        return $this;
-    }
-
-    public function getDateCreation(): ?\DateTimeInterface
-    {
-        return $this->date_creation;
-    }
-
-    public function setDateCreation(\DateTimeInterface $date_creation): static
-    {
-        $this->date_creation = $date_creation;
+        $this->totalHT = $totalHT;
 
         return $this;
     }

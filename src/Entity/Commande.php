@@ -30,11 +30,11 @@ class Commande
     #[ORM\ManyToMany(targetEntity: Produit::class, inversedBy: 'commandes')]
     private Collection $produits;
 
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: BonLivraison::class, orphanRemoval: true)]
+    private Collection $bonLivraisons;
+
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Livraison::class, orphanRemoval: true)]
     private Collection $livraisons;
-
-    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Bonlivraison::class, orphanRemoval: true)]
-    private Collection $bonlivraisons;
 
     #[ORM\OneToOne(mappedBy: 'commande', cascade: ['persist', 'remove'])]
     private ?Facture $facture = null;
@@ -42,8 +42,8 @@ class Commande
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->bonLivraisons = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
-        $this->bonlivraisons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,31 +146,6 @@ class Commande
         return $this;
     }
 
-    public function getBonlivraisons(): Collection
-    {
-        return $this->bonlivraisons;
-    }
-
-    public function addBonlivraison(Bonlivraison $bonlivraison): static
-    {
-        if (!$this->bonlivraisons->contains($bonlivraison)) {
-            $this->bonlivraisons->add($bonlivraison);
-            $bonlivraison->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBonlivraison(Bonlivraison $bonlivraison): static
-    {
-        if ($this->bonlivraisons->removeElement($bonlivraison)) {
-            if ($bonlivraison->getCommande() === $this) {
-                $bonlivraison->setCommande(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getFacture(): ?Facture
     {
@@ -188,6 +163,32 @@ class Commande
         }
 
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getBonLivraisons(): Collection
+    {
+        return $this->bonLivraisons;
+    }
+
+    public function addBonLivraison(BonLivraison $bonLivraison): static
+    {
+        if (!$this->bonLivraisons->contains($bonLivraison)) {
+            $this->bonLivraisons->add($bonLivraison);
+            $bonLivraison->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBonLivraison(BonLivraison $bonLivraison): static
+    {
+        if ($this->bonLivraisons->removeElement($bonLivraison)) {
+            if ($bonLivraison->getCommande() === $this) {
+                $bonLivraison->setCommande(null);
+            }
+        }
 
         return $this;
     }

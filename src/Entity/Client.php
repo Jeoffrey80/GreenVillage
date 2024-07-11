@@ -45,6 +45,10 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable:true)]
     private ?string $reduc_pro = null;
 
+    #[ORM\ManyToOne(targetEntity: Commercial::class, inversedBy: 'clients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commercial $commercial = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -209,5 +213,16 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->adresse_mail;
+    }
+    public function getCommercial(): ?Commercial
+    {
+        return $this->commercial;
+    }
+
+    public function setCommercial(?Commercial $commercial): static
+    {
+        $this->commercial = $commercial;
+
+        return $this;
     }
 }

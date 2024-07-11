@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CommercialRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: CommercialRepository::class)]
 class Commercial
@@ -24,6 +26,9 @@ class Commercial
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'commercial', targetEntity: Client::class, orphanRemoval: true)]
+    private Collection $clients;
 
     public function getId(): ?int
     {
@@ -77,4 +82,39 @@ class Commercial
 
         return $this;
     }
+    public function __construct()
+    {
+        $this->clients = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection<int, Client>
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Client $client): static
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients->add($client);
+            $client->setCommercial($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): static
+    {
+        if ($this->clients->removeElement($client)) {
+            // set the owning side to null (unless already changed)
+            if ($client->getCommercial() === $this) {
+                $client->setCommercial(null);
+            }
+        }
+
+        return $this;
+    }
 }
+

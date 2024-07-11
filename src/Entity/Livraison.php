@@ -20,6 +20,10 @@ class Livraison
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_reception = null;
 
+    #[ORM\ManyToOne(inversedBy: 'livraisons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commande $commande = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +49,18 @@ class Livraison
     public function setDateReception(\DateTimeInterface $date_reception): static
     {
         $this->date_reception = $date_reception;
+
+        return $this;
+    }
+    
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): static
+    {
+        $this->commande = $commande;
 
         return $this;
     }

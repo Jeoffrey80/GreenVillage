@@ -16,18 +16,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use App\Entity\Commercial;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new Client();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -52,8 +55,17 @@ class RegistrationController extends AbstractController
                 $user->setCoefficient('10.00'); // Default coefficient
             }
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            // Set the default commercial (with ID = 1)
+            $defaultCommercial = $this->entityManager->getRepository(Commercial::class)->find(1);
+            if ($defaultCommercial) {
+                $user->setCommercial($defaultCommercial);
+            } else {
+                // Handle case if default commercial with ID = 1 does not exist
+                // This could be an error scenario or fallback logic
+            }
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             // Generate a signed URL and email it to the user for email verification
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -85,7 +97,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        $this->addFlash('success', 'Votre adresse mail a été vérifié.');
+        $this->addFlash('success', 'Votre adresse mail a été vérifiée.');
 
         return $this->redirectToRoute('app_accueil');
     }

@@ -5,6 +5,8 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use App\Entity\Produit;
+use App\Entity\Fournisseur;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +21,7 @@ class ProduitType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('prix')
-            ->add('categorie', null, [
+            ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
@@ -28,6 +30,13 @@ class ProduitType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 'placeholder' => 'Choisir une catégorie',
+                'required' => true,
+                'attr' => ['class' => 'form-control'],
+            ])
+            ->add('fournisseur', EntityType::class, [
+                'class' => Fournisseur::class,
+                'choice_label' => 'ref_fournisseur', // Assurez-vous que 'reference' est une propriété de votre entité Fournisseur
+                'placeholder' => 'Choisir un fournisseur',
                 'required' => true,
                 'attr' => ['class' => 'form-control'],
             ]);

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Entity\Fournisseur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -120,3 +121,4 @@ class RoleController extends AbstractController
         return $this->redirectToRoute('Role_dashboard');
     }
 }
+

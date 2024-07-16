@@ -113,6 +113,7 @@
                     Panier &nbsp; 
                     <span>{{ app.session.get("panier") | length }}</span>
                 </a>
+
                 {% if app.user %}
                     <a href="{{ path('app_logout') }}" class="btn btn-primary ms-2">Déconnexion</a>
                 {% else %}

@@ -4,20 +4,28 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        app_user_provider:
+        app_user_provider1:
             entity:
                 class: App\Entity\Client
                 property: adresse_mail
+        app_user_provider2:
+            entity:
+                class: App\Entity\Commercial
+                property: adresse_mail
+        all_users:
+            chain:
+                providers: ['app_user_provider1', 'app_user_provider2']
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
+            provider: all_users
             custom_authenticator: App\Security\UserFormAuthenticator
             logout:
-                path: app_logout          
+                path: app_logout         
             
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -33,9 +41,10 @@ security:
         - { path: ^/Role, role: ROLE_CHEF}
         - { path: ^/Role, role: ROLE_ADMIN}
         - { path: ^/Contact, role: ROLE_USER}
+        - { path: ^/commander, role: ROLE_USER}
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_CHEF, ROLE_CLIENT]    
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_CHEF, ROLE_CLIENT]    
 when@test:
     security:
         password_hashers:

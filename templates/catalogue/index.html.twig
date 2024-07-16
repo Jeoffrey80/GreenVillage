@@ -136,7 +136,7 @@
 {% block body %}
 <div class="welcome-container beige-section">
     {% if app.user %}
-        <h1>Bonjour {{ app.user.prenom }}</h1>
+        <h1>Bonjour {{ app.user.nom }}</h1>
     {% else %}
         <h1>Bonjour Visiteur</h1>
     {% endif %}

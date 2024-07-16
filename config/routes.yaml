@@ -51,3 +51,13 @@ modifier_produit:
     path: /modifier/{id}
     controller: App\Controller\RoleController::modifierProduit
     methods: ['GET', 'POST']
+
+app_commander:
+    path: /commander
+    controller: App\Controller\CommandeController::commander
+    methods: [POST]
+
+app_commande_confirmation:
+    path: /commande/confirmation/{id}
+    controller: App\Controller\CommandeController::confirmation
+

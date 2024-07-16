@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Client;
+use App\Entity\Commercial;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -55,11 +56,12 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Cocher la case si je suis professionnelle',
                 'required' => false,
             ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
+        }
+        
+        public function configureOptions(OptionsResolver $resolver)
+        {
+            $resolver->setDefaults([
+            'data_class' => Commercial::class,
             'data_class' => Client::class,
         ]);
     }

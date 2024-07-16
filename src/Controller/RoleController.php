@@ -50,7 +50,7 @@ class RoleController extends AbstractController
             $entityManager->persist($produit);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Le plat a été ajouté avec succès.');
+            $this->addFlash('success', 'Le produit a été ajouté avec succès.');
 
             return $this->redirectToRoute('Role_dashboard');
         }

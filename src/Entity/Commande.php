@@ -30,19 +30,22 @@ class Commande
     #[ORM\ManyToMany(targetEntity: Produit::class, inversedBy: 'commandes')]
     private Collection $produits;
 
-    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: BonLivraison::class, orphanRemoval: true)]
-    private Collection $bonLivraisons;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_emission = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $montant = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Livraison::class, orphanRemoval: true)]
     private Collection $livraisons;
 
-    #[ORM\OneToOne(mappedBy: 'commande', cascade: ['persist', 'remove'])]
-    private ?Facture $facture = null;
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'commandes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $client = null;
 
     public function __construct()
     {
         $this->produits = new ArrayCollection();
-        $this->bonLivraisons = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
     }
 
@@ -71,6 +74,30 @@ class Commande
     public function setNomCommande(string $nom_commande): static
     {
         $this->nom_commande = $nom_commande;
+
+        return $this;
+    }
+
+    public function getDateEmission(): ?\DateTimeInterface
+    {
+        return $this->date_emission;
+    }
+
+    public function setDateEmission(\DateTimeInterface $date_emission): static
+    {
+        $this->date_emission = $date_emission;
+
+        return $this;
+    }
+
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(string $montant): static
+    {
+        $this->montant = $montant;
 
         return $this;
     }
@@ -146,49 +173,14 @@ class Commande
         return $this;
     }
 
-
-    public function getFacture(): ?Facture
+    public function getClient(): ?Client
     {
-        return $this->facture;
+        return $this->client;
     }
 
-    public function setFacture(?Facture $facture): static
+    public function setClient(?Client $client): static
     {
-        if ($facture === null && $this->facture !== null) {
-            $this->facture->setCommande(null);
-        }
-
-        if ($facture !== null && $facture->getCommande() !== $this) {
-            $facture->setCommande($this);
-        }
-
-        $this->facture = $facture;
-
-        return $this;
-    }
-
-    public function getBonLivraisons(): Collection
-    {
-        return $this->bonLivraisons;
-    }
-
-    public function addBonLivraison(BonLivraison $bonLivraison): static
-    {
-        if (!$this->bonLivraisons->contains($bonLivraison)) {
-            $this->bonLivraisons->add($bonLivraison);
-            $bonLivraison->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBonLivraison(BonLivraison $bonLivraison): static
-    {
-        if ($this->bonLivraisons->removeElement($bonLivraison)) {
-            if ($bonLivraison->getCommande() === $this) {
-                $bonLivraison->setCommande(null);
-            }
-        }
+        $this->client = $client;
 
         return $this;
     }

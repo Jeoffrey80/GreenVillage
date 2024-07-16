@@ -1,37 +1,36 @@
 {# templates/contact/contact.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes Informations{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .beige-section {
-            background-color: #f5f5dc; /* Couleur de fond beige */
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-    </style>
-{% endblock %}
+{% block title %}Contact{% endblock %}
+
 {% block body %}
-    <div class="container my-5 beige-section">
-        <h1 class="mb-4">Mes Informations</h1>
-        <div class="bg-light p-4 rounded shadow-sm">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <p><strong>Nom :</strong> {{ client.nom }}</p>
-                    <p><strong>Prénom :</strong> {{ client.prenom }}</p>
-                    <p><strong>Email :</strong> {{ client.email }}</p>
-                    <p><strong>Adresse de livraison :</strong> {{ client.adresseLivraison }}</p>
-                    <p><strong>Adresse de facturation :</strong> {{ client.adresseFacturation }}</p>
-                    <p><strong>Coefficient :</strong> {{ client.coefficient }}</p>
-                    {% if client.reducPro %}
-                        <p><strong>Réduction professionnelle :</strong> {{ client.reducPro }}</p>
-                    {% endif %}
-                    <p><strong>Type de client :</strong> {{ client.typeClient ? 'Professionnel' : 'Particulier' }}</p>
-                </div>
+    <div class="container my-5">
+        <h1 class="mb-4">Contactez-nous</h1>
+        
+        {% if app.user %}
+            <div class="bg-light p-4 rounded shadow-sm mb-4">
+                <h2>Vos Informations</h2>
+                <p><strong>Nom :</strong> {{ client.nom }}</p>
+                <p><strong>Prénom :</strong> {{ client.prenom }}</p>
+                <p><strong>Email :</strong> {{ client.email }}</p>
+                <p><strong>Type de client :</strong> {{ client.typeClient ? 'Professionnel' : 'Particulier' }}</p>
+                <!-- Ajoutez d'autres informations de client si nécessaires -->
             </div>
-            <a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
-        </div>
+            
+            <div class="bg-light p-4 rounded shadow-sm">
+                <h2>Formulaire de Contact</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.from) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.message) }}
+
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Vous devez être connecté pour accéder à cette page.
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -1,15 +1,16 @@
 <?php
 namespace App\Entity;
 
-use App\Repository\CommercialRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\CommercialRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: CommercialRepository::class)]
-class Commercial
+class Commercial implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -156,4 +157,42 @@ class Commercial
             }
         }, $this->password);
     }
+
+    public function getRoles(): array
+    {
+        $roles = [$this->role ?: 'ROLE_USER'];
+
+        // garantit que chaque utilisateur a au moins ROLE_USER
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    public function getSalt(): ?string
+    {
+        // non nécessaire pour les applications utilisant bcrypt ou argon2i
+        return null;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->adresse_mail;
+    }
+
+    public function eraseCredentials()
+    {
+        // Si vous stockez des données temporaires ou sensibles dans l'utilisateur, effacez-les ici
+        // $this->plainPassword = null;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->adresse_mail;
+    }
+
+
+
+
 }

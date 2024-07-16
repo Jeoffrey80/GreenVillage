@@ -60,7 +60,7 @@
                 {% endif %}
             </div>
             <div class="beige-section">
-                <form method="post" action="{{ path('app_payment_process') }}">
+                <form method="post" action="{{ path('app_commander') }}">
                     <div class="form-group">
                         <label for="cardNumber">Numéro de carte</label>
                         <input type="text" id="cardNumber" name="cardNumber" class="form-control" required>
@@ -73,7 +73,7 @@
                         <label for="cvv">CVV</label>
                         <input type="text" id="cvv" name="cvv" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-success mt-3">Payer</button>
+                    <button type="submit" class="btn btn-primary">Commander</button>
                 </form>
             </div>
         {% else %}

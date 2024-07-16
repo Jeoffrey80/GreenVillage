@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de commande{% endblock %}
+
+{% block body %}
+    <h1>Confirmation de commande</h1>
+    <p>Commande N°: {{ commande.id }}</p>
+    <p>Date: {{ commande.dateDebutCommande|date('Y-m-d H:i:s') }}</p>
+    <p>Nom: {{ commande.nomCommande }}</p>
+    <p>Statut: {{ commande.statut }}</p>
+    <p>Montant total: {{ commande.montantTot }}</p>
+
+    <h2>Produits</h2>
+    <ul>
+        {% for produit in commande.produits %}
+            <li>{{ produit.nom }} - {{ produit.prix }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Bon de Livraison</h2>
+    <p>Date: {{ commande.bonLivraisons[0].date|date('Y-m-d H:i:s') }}</p>
+
+    <h2>Facture</h2>
+    <p>Date d'émission: {{ commande.facture.dateEmission|date('Y-m-d H:i:s') }}</p>
+{% endblock %}

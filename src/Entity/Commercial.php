@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\CommercialRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[ORM\Entity(repositoryClass: CommercialRepository::class)]
 class Commercial
@@ -29,6 +30,11 @@ class Commercial
 
     #[ORM\OneToMany(mappedBy: 'commercial', targetEntity: Client::class, orphanRemoval: true)]
     private Collection $clients;
+
+    public function __construct()
+    {
+        $this->clients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,10 +88,6 @@ class Commercial
 
         return $this;
     }
-    public function __construct()
-    {
-        $this->clients = new ArrayCollection();
-    }
 
     /**
      * @return Collection<int, Client>
@@ -116,5 +118,42 @@ class Commercial
 
         return $this;
     }
-}
 
+    // Méthode pour hacher le mot de passe
+    public function hashPassword(UserPasswordHasherInterface $hasher): void
+    {
+        $this->password = $hasher->hashPassword(new class ($this->password) implements PasswordAuthenticatedUserInterface {
+            private $password;
+
+            public function __construct($password)
+            {
+                $this->password = $password;
+            }
+
+            public function getPassword(): ?string
+            {
+                return $this->password;
+            }
+
+            public function getSalt(): ?string
+            {
+                return null;
+            }
+
+            public function eraseCredentials(): void
+            {
+                // No-op
+            }
+
+            public function getRoles(): array
+            {
+                return [];
+            }
+
+            public function getUserIdentifier(): string
+            {
+                return '';
+            }
+        }, $this->password);
+    }
+}

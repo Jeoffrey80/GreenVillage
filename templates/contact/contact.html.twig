@@ -2,9 +2,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mes Informations{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    <div class="container my-5">
+    <div class="container my-5 beige-section">
         <h1 class="mb-4">Mes Informations</h1>
         <div class="bg-light p-4 rounded shadow-sm">
             <div class="row">

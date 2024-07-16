@@ -56,7 +56,7 @@ class RegistrationController extends AbstractController
             }
 
             // Set the default commercial (with ID = 1)
-            $defaultCommercial = $this->entityManager->getRepository(Commercial::class)->find(1);
+            $defaultCommercial = $this->entityManager->getRepository(Commercial::class)->find(4);
             if ($defaultCommercial) {
                 $user->setCommercial($defaultCommercial);
             } else {

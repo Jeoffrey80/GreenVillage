@@ -1,0 +1,46 @@
+{# templates/commercial/ajouter.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un commercial{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container mt-5 beige-section">
+        <h1>Ajouter un commercial</h1>
+        <div class="card my-5">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.nom, 'Nom') }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.role, 'Rôle') }}
+                    {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.adresse_mail, 'Adresse Mail') }}
+                    {{ form_widget(form.adresse_mail, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.password, 'Mot de Passe') }}
+                    {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -10,13 +10,12 @@
         <!-- Inclure vos styles CSS ici si nécessaire -->
         <style>
             body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh; /* Force le corps à remplir la hauteur de la fenêtre */
-                margin: 0;
-                padding: 0;
+                background-image: url('{{ asset('/assets/fond/fond.WebP') }}'); /* Chemin vers votre image de fond */
+                background-size: cover; /* Assure que l'image couvre tout le fond */
+                background-position: center; /* Centrer l'image */
                 font-family: 'Arial', sans-serif; /* Choix de la police */
-                background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Dégradé de fond */
+                background-attachment: fixed; /* Fixe l'image de fond */
+                background-repeat: no-repeat; /* Empêche la répétition de l'image */
                 color: #343a40; /* Couleur du texte */
             }
             .content {
@@ -106,6 +105,7 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_CHEF') or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('Role_dashboard') }}" class="btn btn-primary me-2">Dashboard</a>
+                        <a href="{{ path('commercial_index') }}" class="btn btn-primary me-2">Commerciaux</a>
                     {% endif %}
                 {% endif %}
                 <a href="/panier" class="panier-link">

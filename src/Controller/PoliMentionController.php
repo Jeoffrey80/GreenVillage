@@ -9,17 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PoliMentionController extends AbstractController
 {
-    /**
-     * @Route("/politique", name="app_politique")
-     */
+    #[Route("/politique", name:"app_politique")]
     public function politique(): Response
     {
         return $this->render('politique/index.html.twig');
     }
 
-    /**
-     * @Route("/mentions", name="app_mentions")
-     */
+    #[Route("/mentions", name:"app_mentions")]
     public function mentions(): Response
     {
         return $this->render('mention/index.html.twig');

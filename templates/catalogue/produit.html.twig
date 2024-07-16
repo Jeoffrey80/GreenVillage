@@ -43,11 +43,18 @@
             background-color: #218838; /* Couleur de fond verte foncée */
             border-color: #1e7e34; /* Couleur de bordure verte foncée */
         }
+
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+<div class="container mt-4 beige-section">
     <div class="product-container">
         <img src="{{ asset(produit.image) }}" class="product-image" alt="{{ produit.nom }}">
         <div class="product-details">

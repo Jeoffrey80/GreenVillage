@@ -14,11 +14,18 @@
             object-fit: cover; /* Recadre l'image pour qu'elle s'ajuste bien dans le cadre */
             border-radius: 10px; /* Coins arrondis */
         }
+
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+<div class="container mt-4 beige-section">
     <h1>Sous-Catégories de {{ categorie.nom }}</h1>
     <div class="row">
         {% for sousCategorie in sousCategories %}

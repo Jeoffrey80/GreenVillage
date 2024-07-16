@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="beige-section">
+        <h1>Page de Paiement</h1>
+        <hr>
+        <div>
+            {% if app.user %}
+                <h2>Coordonnées du Client</h2>
+                <p>Nom: {{ app.user.nom }}</p>
+                <p>Prénom: {{ app.user.prenom }}</p>
+                <p>Email: {{ app.user.adresseMail }}</p>
+                <p>Adresse de livraison: {{ app.user.adresseLivraison }}</p>
+                <p>Adresse de facturation: {{ app.user.adresseFacturation }}</p>
+            </div>
+
+            <div class="beige-section">
+                <h2>Récapitulatif du Panier</h2>
+                {% if panier is empty %}
+                    <p>Votre panier est vide.</p>
+                {% else %}
+                    {% set total_ht = 0 %}
+                    {% for produit in panier %}
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                                <img src="{{ produit.image }}" alt="{{ produit.nom }}" class="img-fluid" style="max-width: 100px;">
+                            </div>
+                            <div class="col-md-10">
+                                <h3>{{ produit.nom }}</h3>
+                                <div>{{ produit.description }}</div>
+                                <div>{{ produit.prix }} €</div>
+                                <div class="fw-bold">Quantité: {{ produit.quantite }}</div>
+                            </div>
+                            {% set total_ht = total_ht + (produit.prix * produit.quantite) %}
+                            <hr>
+                        </div>
+                    {% endfor %}
+                    {% set total_ttc = total_ht * 1.196 %}
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-end">
+                            <h4>Total HT: {{ total_ht|number_format(2, '.', ',') }} €</h4>
+                            <h4>Total TTC: {{ total_ttc|number_format(2, '.', ',') }} €</h4>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="beige-section">
+                <form method="post" action="{{ path('app_payment_process') }}">
+                    <div class="form-group">
+                        <label for="cardNumber">Numéro de carte</label>
+                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Date d'expiration</label>
+                        <input type="text" id="expiryDate" name="expiryDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Payer</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="beige-section">
+                <p>Vous devez être connecté pour effectuer un paiement.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

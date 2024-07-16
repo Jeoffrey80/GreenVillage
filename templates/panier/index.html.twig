@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+<div class="container mt-4 beige-section">
     <h1>Mon Panier</h1>
     <hr>
     <div>
@@ -14,8 +25,11 @@
             {% for produit in panier %}
                 <div>
                     <h3>{{ produit.nom }}</h3>
+                    <div>
+                        <img src="{{ produit.image }}" alt="{{ produit.nom }}" class="img-fluid">
+                    </div>
                     <div>{{ produit.description }}</div>
-                    <div>{{ produit.prix }}</div>
+                    <div>{{ produit.prix }} €</div>
                     <div class="fw-bold">Quantité: {{ produit.quantite }}</div>
                     <div>
                         <a href="{{ path('app_add', {'id': produit.id}) }}" class="btn btn-primary">+</a>
@@ -25,6 +39,7 @@
                 </div>
             {% endfor %}
             <a href="{{ path('app_clear') }}" class="btn btn-danger mt-3">Vider le Panier</a>
+            <a href="{{ path('app_payment') }}" class="btn btn-success mt-3">Passer au paiement</a>
         {% endif %}
     </div>
 </div>

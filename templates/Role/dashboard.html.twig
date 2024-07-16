@@ -3,9 +3,19 @@
 {% block title %}
     Tableau de bord du Chef
 {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    <div class="container mt-5">
+    <div class="container mt-5 beige-section">
         <h1>Tableau de bord du Chef</h1>
 
         {# Formulaire pour ajouter un nouveau produit #}

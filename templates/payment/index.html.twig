@@ -73,7 +73,9 @@
                         <label for="cvv">CVV</label>
                         <input type="text" id="cvv" name="cvv" class="form-control" required>
                     </div>
+                    <input type="hidden" name="montant_ttc" value="{{ total_ttc }}">
                     <button type="submit" class="btn btn-primary">Commander</button>
+                    
                 </form>
             </div>
         {% else %}

@@ -27,13 +27,28 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // Récupérer le montant total TTC depuis le formulaire
+        $montantTTC = $request->request->get('montant_ttc');
+
+        // Valider et convertir le montant TTC en float
+        try {
+            $montantTTC = (float) $montantTTC;
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException('Montant TTC invalide.');
+        }
+
         // Créer une nouvelle commande
         $commande = new Commande();
         $commande->setClient($client);
         $commande->setDateDebutCommande(new \DateTime());
         $commande->setNomCommande('Commande ' . (new \DateTime())->format('Y-m-d H:i:s'));
         $commande->setStatut('En attente');
-        $commande->setMontantTot('0'); // Montant initial
+        $commande->setMontantTot(0); // Montant initial
+        $commande->setMontant(number_format($montantTTC, 2, '.', '')); // Formater le montant TTC avec 2 décimales
+
+        // Calculer la date d'émission (7 jours après la date de début de commande)
+        $dateEmission = (new \DateTime())->modify('+7 days');
+        $commande->setDateEmission($dateEmission);
 
         // Récupérer les produits du panier (à partir de la session ou autre)
         $panier = $request->getSession()->get('panier', []);
@@ -49,8 +64,8 @@ class CommandeController extends AbstractController
             }
         }
 
-        // Mettre à jour le montant total
-        $commande->setMontantTot($montantTot);
+        // Mettre à jour le montant total HT (si nécessaire)
+        // $commande->setMontantTot($montantTot); // Ceci pourrait ne pas être nécessaire si montant total est déjà géré dans l'entité
 
         // Persister les données
         $entityManager->persist($commande);

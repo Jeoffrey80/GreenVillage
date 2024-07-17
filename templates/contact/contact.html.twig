@@ -1,36 +1,91 @@
-{# templates/contact/contact.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Contact{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .contact-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+        }
+
+        .contact-form {
+            background-color: #ffffff; /* Couleur de fond blanche pour le formulaire */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+            margin-top: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-submit {
+            background-color: #007bff; /* Couleur de fond bleue */
+            border: 1px solid #007bff; /* Bordure bleue */
+            color: #ffffff; /* Texte blanc */
+            padding: 12px 20px; /* Espacement du bouton */
+            font-size: 16px; /* Taille de police */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3; /* Couleur de fond bleue foncée au survol */
+            border-color: #0056b3; /* Bordure bleue foncée au survol */
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <div class="container my-5">
-        <h1 class="mb-4">Contactez-nous</h1>
-        
-        {% if app.user %}
+<div class="container my-5 contact-section">
+    <h1 class="mb-4">Contactez-nous</h1>
+    
+    {% if app.user %}
+        <div class="">
             <div class="bg-light p-4 rounded shadow-sm mb-4">
                 <h2>Vos Informations</h2>
                 <p><strong>Nom :</strong> {{ client.nom }}</p>
                 <p><strong>Prénom :</strong> {{ client.prenom }}</p>
-                <p><strong>Email :</strong> {{ client.email }}</p>
+                <p><strong>Numéro de Téléphone :</strong> {{ client.telephone }}</p>
+                <p><strong>Email :</strong> {{ client.adresseMail }}</p>
                 <p><strong>Type de client :</strong> {{ client.typeClient ? 'Professionnel' : 'Particulier' }}</p>
                 <!-- Ajoutez d'autres informations de client si nécessaires -->
             </div>
             
-            <div class="bg-light p-4 rounded shadow-sm">
+            <div class="contact-form bg-light p-4 rounded shadow-sm">
                 <h2>Formulaire de Contact</h2>
                 {{ form_start(form) }}
-                {{ form_row(form.from) }}
-                {{ form_row(form.subject) }}
-                {{ form_row(form.message) }}
+                
+                <div class="mb-3">
+                    {{ form_row(form.from, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse email'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.subject, {'attr': {'class': 'form-control', 'placeholder': 'Sujet'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message', 'rows': 6}}) }}
+                </div>
 
-                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button type="submit" class="btn btn-submit btn-lg btn-block">Envoyer</button>
                 {{ form_end(form) }}
             </div>
-        {% else %}
-            <div class="alert alert-danger" role="alert">
-                Vous devez être connecté pour accéder à cette page.
-            </div>
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Vous devez être connecté pour accéder à cette page.
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

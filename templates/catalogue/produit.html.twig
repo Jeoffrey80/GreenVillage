@@ -50,6 +50,27 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
+                /* Fixe le footer en bas de la page */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 {% endblock %}
 
@@ -70,5 +91,9 @@
             <a href="/add/{{ produit.id }}" class="btn btn-primary btn-add-to-cart">Ajouter au panier</a>
         </div>
     </div>
+</div>
+
+<div class="footer">
+    <p>&copy; {{ "now"|date("Y") }} Village Green. Tous droits réservés.</p>
 </div>
 {% endblock %}

@@ -1,4 +1,7 @@
 <?php
+
+// src/Entity/Commande.php
+
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
@@ -27,14 +30,17 @@ class Commande
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $montant_tot = null;
 
-    #[ORM\ManyToMany(targetEntity: Produit::class, inversedBy: 'commandes')]
-    private Collection $produits;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_emission = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $montant = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $adresseLivraison = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $adresseFacturation = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Livraison::class, orphanRemoval: true)]
     private Collection $livraisons;
@@ -43,10 +49,13 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: CommandeProduit::class, orphanRemoval: true)]
+    private Collection $commandeProduits;
+
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
+        $this->commandeProduits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,7 +68,7 @@ class Commande
         return $this->date_debut_commande;
     }
 
-    public function setDateDebutCommande(\DateTimeInterface $date_debut_commande): static
+    public function setDateDebutCommande(\DateTimeInterface $date_debut_commande): self
     {
         $this->date_debut_commande = $date_debut_commande;
 
@@ -71,33 +80,9 @@ class Commande
         return $this->nom_commande;
     }
 
-    public function setNomCommande(string $nom_commande): static
+    public function setNomCommande(string $nom_commande): self
     {
         $this->nom_commande = $nom_commande;
-
-        return $this;
-    }
-
-    public function getDateEmission(): ?\DateTimeInterface
-    {
-        return $this->date_emission;
-    }
-
-    public function setDateEmission(\DateTimeInterface $date_emission): static
-    {
-        $this->date_emission = $date_emission;
-
-        return $this;
-    }
-
-    public function getMontant(): ?string
-    {
-        return $this->montant;
-    }
-
-    public function setMontant(string $montant): static
-    {
-        $this->montant = $montant;
 
         return $this;
     }
@@ -107,7 +92,7 @@ class Commande
         return $this->statut;
     }
 
-    public function setStatut(string $statut): static
+    public function setStatut(string $statut): self
     {
         $this->statut = $statut;
 
@@ -119,30 +104,57 @@ class Commande
         return $this->montant_tot;
     }
 
-    public function setMontantTot(string $montant_tot): static
+    public function setMontantTot(string $montant_tot): self
     {
         $this->montant_tot = $montant_tot;
 
         return $this;
     }
 
-    public function getProduits(): Collection
+    public function getDateEmission(): ?\DateTimeInterface
     {
-        return $this->produits;
+        return $this->date_emission;
     }
 
-    public function addProduit(Produit $produit): static
+    public function setDateEmission(\DateTimeInterface $date_emission): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
-        }
+        $this->date_emission = $date_emission;
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): static
+    public function getMontant(): ?string
     {
-        $this->produits->removeElement($produit);
+        return $this->montant;
+    }
+
+    public function setMontant(string $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getAdresseLivraison(): ?string
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(?string $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
+
+        return $this;
+    }
+
+    public function getAdresseFacturation(): ?string
+    {
+        return $this->adresseFacturation;
+    }
+
+    public function setAdresseFacturation(?string $adresseFacturation): self
+    {
+        $this->adresseFacturation = $adresseFacturation;
 
         return $this;
     }
@@ -152,19 +164,20 @@ class Commande
         return $this->livraisons;
     }
 
-    public function addLivraison(Livraison $livraison): static
+    public function addLivraison(Livraison $livraison): self
     {
         if (!$this->livraisons->contains($livraison)) {
-            $this->livraisons->add($livraison);
+            $this->livraisons[] = $livraison;
             $livraison->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removeLivraison(Livraison $livraison): static
+    public function removeLivraison(Livraison $livraison): self
     {
         if ($this->livraisons->removeElement($livraison)) {
+            // set the owning side to null (unless already changed)
             if ($livraison->getCommande() === $this) {
                 $livraison->setCommande(null);
             }
@@ -178,9 +191,39 @@ class Commande
         return $this->client;
     }
 
-    public function setClient(?Client $client): static
+    public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandeProduit>
+     */
+    public function getCommandeProduits(): Collection
+    {
+        return $this->commandeProduits;
+    }
+
+    public function addCommandeProduit(CommandeProduit $commandeProduit): self
+    {
+        if (!$this->commandeProduits->contains($commandeProduit)) {
+            $this->commandeProduits[] = $commandeProduit;
+            $commandeProduit->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeProduit(CommandeProduit $commandeProduit): self
+    {
+        if ($this->commandeProduits->removeElement($commandeProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($commandeProduit->getCommande() === $this) {
+                $commandeProduit->setCommande(null);
+            }
+        }
 
         return $this;
     }

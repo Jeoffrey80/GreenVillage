@@ -36,8 +36,14 @@ class Produit
     #[ORM\JoinColumn(nullable: false)]
     private ?Fournisseur $fournisseur = null;
 
-    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'produits')]
-    private Collection $commandes;
+    // Retirer la relation OneToMany avec CommandeProduit
+    // #[ORM\OneToMany(mappedBy: 'produit', targetEntity: CommandeProduit::class)]
+    // private Collection $commandeProduits;
+
+    public function __construct()
+    {
+        // $this->commandeProduits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +109,7 @@ class Produit
 
         return $this;
     }
+
     public function getFournisseur(): ?Fournisseur
     {
         return $this->fournisseur;
@@ -114,37 +121,10 @@ class Produit
 
         return $this;
     }
-    public function __construct()
-    {
-        $this->commandes = new ArrayCollection();
-    }
 
-    // ... les autres getters et setters ...
-
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): static
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->addProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): static
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeProduit($this);
-        }
-
-        return $this;
-    }
+    // public function getCommandeProduits(): Collection
+    // {
+    //     return $this->commandeProduits;
+    // }
 }
+

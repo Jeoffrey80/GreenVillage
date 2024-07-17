@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Client;
-use App\Entity\Commercial;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,7 +23,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
             ])
@@ -34,34 +33,33 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrer un mot de passe',
+                        'message' => 'Veuillez entrer un mot de passe.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caratères',
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères.',
                         'max' => 4096,
                     ]),
                 ],
-                'invalid_message' => 'Le mot de passe est invalide.',
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Je saisie à nouveau le mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
             ])
             ->add('nom')
             ->add('prenom')
-            ->add('adresse_livraison')
-            ->add('adresse_facturation')
+            ->add('adresse')
+            ->add('telephone')
             ->add('type_client', CheckboxType::class, [
-                'label' => 'Cocher la case si je suis professionnelle',
+                'label' => 'Cochez si vous êtes un professionnel',
                 'required' => false,
             ]);
-        }
-        
-        public function configureOptions(OptionsResolver $resolver)
-        {
-            $resolver->setDefaults([
-            'data_class' => Commercial::class,
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
             'data_class' => Client::class,
         ]);
     }

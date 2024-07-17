@@ -4,8 +4,41 @@
 
 {% block title %}Inscription{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Fixe le footer en bas de la page */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <div class="container">
+    <div class="container beige-section">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mt-5 mb-5">
@@ -31,10 +64,10 @@
                             {{ form_row(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.adresse_livraison, {'attr': {'class': 'form-control', 'placeholder': 'Adresse de livraison'}}) }}
+                            {{ form_row(registrationForm.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.adresse_facturation, {'attr': {'class': 'form-control', 'placeholder': 'Adresse de facturation'}}) }}
+                            {{ form_row(registrationForm.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de téléphone'}}) }}
                         </div>
                         <div class="mb-3 form-check">
                             {{ form_row(registrationForm.type_client, {'label': 'Je suis un professionnel', 'attr': {'class': 'form-check-input'}}) }}
@@ -51,5 +84,9 @@
                 <p class="mt-3 text-center">Déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous ici</a></p>
             </div>
         </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {{ "now"|date("Y") }} Village Green. Tous droits réservés.</p>
     </div>
 {% endblock %}

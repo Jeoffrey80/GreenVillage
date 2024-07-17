@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -27,10 +27,10 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $adresse_mail = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse_livraison = null;
+    private ?string $adresse = null; // Remplace adresse_livraison et adresse_facturation
 
-    #[ORM\Column(length: 255)]
-    private ?string $adresse_facturation = null;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $telephone = null; // Nouvel attribut pour le numéro de téléphone
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
@@ -41,10 +41,10 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $type_client = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?string $coefficient = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable:true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?string $reduc_pro = null;
 
     #[ORM\ManyToOne(targetEntity: Commercial::class, inversedBy: 'clients')]
@@ -69,7 +69,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom): self
     {
         $this->nom = $nom;
 
@@ -81,7 +81,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
 
@@ -93,38 +93,33 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->adresse_mail;
     }
 
-    public function setAdresseMail(string $adresse_mail): static
+    public function setAdresseMail(string $adresse_mail): self
     {
         $this->adresse_mail = $adresse_mail;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getAdresse(): ?string
     {
-        return $this->adresse_mail;
+        return $this->adresse;
     }
 
-    public function getAdresseLivraison(): ?string
+    public function setAdresse(string $adresse): self
     {
-        return $this->adresse_livraison;
-    }
-
-    public function setAdresseLivraison(string $adresse_livraison): static
-    {
-        $this->adresse_livraison = $adresse_livraison;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function getAdresseFacturation(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->adresse_facturation;
+        return $this->telephone;
     }
 
-    public function setAdresseFacturation(string $adresse_facturation): static
+    public function setTelephone(?string $telephone): self
     {
-        $this->adresse_facturation = $adresse_facturation;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -134,7 +129,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->role;
     }
 
-    public function setRole(string $role): static
+    public function setRole(string $role): self
     {
         $this->role = $role;
 
@@ -146,19 +141,19 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function isTypeClient(): ?bool
+    public function getTypeClient(): ?bool
     {
         return $this->type_client;
     }
 
-    public function setTypeClient(bool $type_client): static
+    public function setTypeClient(bool $type_client): self
     {
         $this->type_client = $type_client;
 
@@ -170,7 +165,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->coefficient;
     }
 
-    public function setCoefficient(string $coefficient): static
+    public function setCoefficient(string $coefficient): self
     {
         $this->coefficient = $coefficient;
 
@@ -182,7 +177,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->reduc_pro;
     }
 
-    public function setReducPro(string $reduc_pro): self
+    public function setReducPro(?string $reduc_pro): self
     {
         $this->reduc_pro = $reduc_pro;
 
@@ -224,36 +219,41 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->adresse_mail;
     }
+
     public function getCommercial(): ?Commercial
     {
         return $this->commercial;
     }
 
-    public function setCommercial(?Commercial $commercial): static
+    public function setCommercial(?Commercial $commercial): self
     {
         $this->commercial = $commercial;
 
         return $this;
     }
 
+    /**
+     * @return Collection|Commande[]
+     */
     public function getCommandes(): Collection
     {
         return $this->commandes;
     }
 
-    public function addCommande(Commande $commande): static
+    public function addCommande(Commande $commande): self
     {
         if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
+            $this->commandes[] = $commande;
             $commande->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commande $commande): static
+    public function removeCommande(Commande $commande): self
     {
         if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
             if ($commande->getClient() === $this) {
                 $commande->setClient(null);
             }

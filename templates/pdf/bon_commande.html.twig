@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bon de Commande</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #000; /* Texte en noir */
+        }
+
+        p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 150px;
+        }
+
+        .info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .company-info, .customer-info {
+            width: 48%;
+            display: inline-block;
+        }
+
+        .company-info {
+            text-align: left;
+        }
+
+        .customer-info {
+            text-align: right;
+        }
+
+        .details {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .total {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bon de Commande</h1>
+    </div>
+    <div class="info">
+        <div class="company-info">
+            <p><strong>Village Green</strong></p>
+            <p>30 rue Poulainville, 80000 Amiens</p>
+            <p>Téléphone : 0123456789</p>
+            <p>Email : contact@village-green.com</p>
+        </div>
+        <div class="customer-info">
+            <p><strong>Facturé à :</strong></p>
+            <p>{{ commande.client.nom }} {{ commande.client.prenom }}</p>
+            <p>{{ commande.client.adresse }}</p>
+            <p>{{ commande.client.telephone }}</p>
+            <p>{{ commande.client.adresseMail }}</p>
+        </div>
+    </div>
+    <div class="details">
+        <p><strong>Commande N°:</strong> {{ commande.id }}</p>
+        <p><strong>Date:</strong> {{ commande.dateDebutCommande|date('Y-m-d H:i:s') }}</p>
+        <p><strong>Adresse de Livraison:</strong> {{ commande.adresseLivraison }}</p>
+        <p><strong>Adresse de Facturation:</strong> {{ commande.adresseFacturation }}</p>
+    </div>
+    <h2>Détails de la commande</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire (€)</th>
+                <th>Prix Total (€)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in produitsDetails %}
+                <tr>
+                    <td>{{ detail.produit.nom }}</td>
+                    <td>{{ detail.quantite }}</td>
+                    <td>{{ detail.prix }}</td>
+                    <td>{{ detail.quantite * detail.prix }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="total">
+        <p><strong>Montant Total HT:</strong> {{ totalHT }} €</p>
+        <p><strong>Montant Total TTC:</strong> {{ commande.montant }} €</p>
+    </div>
+    <div class="footer">
+        <p>Merci pour votre commande !</p>
+        <p>Village Green - www.village-green.com</p>
+    </div>
+</body>
+</html>

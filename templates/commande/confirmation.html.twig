@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Confirmation de commande{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <div class="container mt-4">
         <div class="beige-section">

@@ -10,6 +10,27 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
+        /* Fixe le footer en bas de la page */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 {% endblock %}
 
@@ -20,6 +41,7 @@
     <div>
         {% if panier is empty %}
             <p>Votre panier est vide.</p>
+            <a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">Retourner à la page d'accueil</a>
         {% else %}
             <h2>Panier</h2>
             {% for produit in panier %}
@@ -40,6 +62,7 @@
             {% endfor %}
             <a href="{{ path('app_clear') }}" class="btn btn-danger mt-3">Vider le Panier</a>
             <a href="{{ path('app_payment') }}" class="btn btn-success mt-3">Passer au paiement</a>
+            <a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">Retourner à la page d'accueil</a>
         {% endif %}
     </div>
 </div>

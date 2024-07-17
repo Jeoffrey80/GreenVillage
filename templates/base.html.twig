@@ -1,4 +1,3 @@
-{# templates/base.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,10 +6,9 @@
     <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
-        <!-- Inclure vos styles CSS ici si nécessaire -->
         <style>
             body {
-                background-image: url('{{ asset('/assets/fond/fond.WebP') }}'); /* Chemin vers votre image de fond */
+                background-color: #ddd3fc; /* Couleur de fond crème */
                 background-size: cover; /* Assure que l'image couvre tout le fond */
                 background-position: center; /* Centrer l'image */
                 font-family: 'Arial', sans-serif; /* Choix de la police */
@@ -71,7 +69,6 @@
                 font-size: 1.5rem;
                 margin-right: 5px;
             }
-
             .panier-count {
                 margin-left: 5px; /* Ajustez selon vos préférences */
             }

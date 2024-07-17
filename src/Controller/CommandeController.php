@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
-use App\Entity\BonLivraison;
-use App\Entity\Facture;
-use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,14 +52,8 @@ class CommandeController extends AbstractController
         // Mettre à jour le montant total
         $commande->setMontantTot($montantTot);
 
-        // Créer une facture
-        $facture = new Facture();
-        $facture->setCommande($commande);
-        $facture->setDateEmission(new \DateTime());
-
         // Persister les données
         $entityManager->persist($commande);
-        $entityManager->persist($facture);
         $entityManager->flush();
 
         // Rediriger vers la page de confirmation de commande

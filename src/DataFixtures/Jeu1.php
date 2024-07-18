@@ -3,14 +3,22 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorie;
+use App\Entity\Client;
 use App\Entity\Produit;
-// use App\Entity\Client;
+use App\Entity\Commercial;
 use App\Entity\Fournisseur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class Jeu1 extends Fixture
 {
+    private $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher) {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager)
     {
         // Catégorie 1 : Cordes
@@ -186,6 +194,33 @@ class Jeu1 extends Fixture
         $produit1->setFournisseur($fourni1);
         $produit2->setFournisseur($fourni1);
         $produit3->setFournisseur($fourni1);
+
+        //création d'un commercial
+        $commercial=new Commercial();
+        $commercial->setNom("Principale");
+        $commercial->setRole("ROLE_CHEF");
+        $commercial->setAdresseMail("principalGV@contact-Green-Village.com");
+        $password=$this->hasher->hashPassword($commercial,'com123');
+        $commercial->setPassword($password);
+        $manager->persist($commercial);
+
+
+        //Création d'un utilisateur admin par defaut
+        $admin = new Client();
+        $admin->setNom("Admin");
+        $admin->setPrenom("AdminJr");
+        $admin->setAdresseMail("admin@admin.com");
+        $admin->setAdresse("2 boulevard des admins");
+        $admin->setTelephone("0689957412");
+        $admin->setRole("ROLE_ADMIN");
+        $password2=$this->hasher->hashPassword($admin,'admin123');
+        $admin->setPassword($password2);
+        $admin->setTypeClient("1");
+        $admin->setCoefficient("40.00");
+        $manager->persist($admin);
+
+        //Lier le client au commercial
+        $admin->setCommercial($commercial);
 
         // Flush toutes les données enregistrées
         $manager->flush();

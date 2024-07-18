@@ -8,8 +8,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: CommercialRepository::class)]
+
+#[ApiResource(operations: [
+    new Get(),  
+    new Put(),
+    new Patch(),
+    new Delete(),
+    new GetCollection(),
+    new Post(),
+])]
+
 class Commercial implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

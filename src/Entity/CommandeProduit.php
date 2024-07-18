@@ -5,8 +5,25 @@ namespace App\Entity;
 
 use App\Repository\CommandeProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: CommandeProduitRepository::class)]
+
+#[ApiResource(operations: [
+    new Get(),  
+    new Put(),
+    new Patch(),
+    new Delete(),
+    new GetCollection(),
+    new Post(),
+])]
+
 class CommandeProduit
 {
     #[ORM\Id]

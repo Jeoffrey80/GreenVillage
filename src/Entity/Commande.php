@@ -9,8 +9,25 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
+
+#[ApiResource(operations: [
+    new Get(),  
+    new Put(),
+    new Patch(),
+    new Delete(),
+    new GetCollection(),
+    new Post(),
+])]
+
 class Commande
 {
     #[ORM\Id]

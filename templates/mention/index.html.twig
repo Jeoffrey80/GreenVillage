@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}<!DOCTYPE html>
 <html lang="fr">
+{% block stylesheets %}
+<style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+</style>
+{% endblock %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +20,11 @@
 </head>
 
 <body>
-<div class="container mt-5">
+<div class="container mt-5 ">
     <h1 class="mb-4">Mentions Légales</h1>
     
     <h2>Informations légales de l'entreprise</h2>
-    <p>Raison sociale : TheDistrict</p>
+    <p>Raison sociale : Green Village</p>
     <p>Forme juridique : SARL</p>
     <p>Siège social : 30 rue de Poulainville, 80000 AMIENS</p>
     <p>Numéro SIRET : 123 456 789 1011</p>
@@ -22,7 +32,7 @@
 
     <h2>Directeur de la publication</h2>
     <p>Prénom et nom du directeur de la publication : Jeoffrey Lavallee</p>
-    <p>Adresse email de contact : thedistrict@district.com</p>
+    <p>Adresse email de contact : Greenvillage@green.com</p>
 
     <h2>Hébergement</h2>
     <p>Nom de l'hébergeur : AFPA</p>
@@ -34,11 +44,11 @@
         30 rue de Poulainville<br>
         80000 Amiens<br>
         Téléphone : +33 1 23 45 67 89<br>
-        Email : thedistrict@district.com
+        Email : Greenvillage@green.com
     </address>
 
     <h2>Droits d'auteur</h2>
-    <p>Tous droits réservés &copy; <?= date('Y'); ?> TheDistrict. Tous les contenus de ce site sont protégés par les lois sur le droit d'auteur.</p>
+    <p>Tous droits réservés &copy; <?= date('Y'); ?> Green Village. Tous les contenus de ce site sont protégés par les lois sur le droit d'auteur.</p>
 </div>
 
 </body>

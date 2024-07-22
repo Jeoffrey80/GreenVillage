@@ -1,0 +1,48 @@
+{# templates/Role/historique.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Historique des Commandes
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container mt-5 beige-section">
+        <h1>Historique des Commandes</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date de début</th>
+                    <th>Nom de commande</th>
+                    <th>Statut</th>
+                    <th>Montant total</th>
+                    <th>Date d'émission</th>
+                    <th>Client</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                    <tr>
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.dateDebutCommande ? commande.dateDebutCommande|date('Y-m-d') : '' }}</td>
+                        <td>{{ commande.nomCommande }}</td>
+                        <td>{{ commande.statut }}</td>
+                        <td>{{ commande.montantTot }}</td>
+                        <td>{{ commande.dateEmission ? commande.dateEmission|date('Y-m-d') : '' }}</td>
+                        <td>{{ commande.client.nom }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

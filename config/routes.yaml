@@ -61,3 +61,8 @@ app_commande_confirmation:
     path: /commande/confirmation/{id}
     controller: App\Controller\CommandeController::confirmation
 
+app_historique_commandes:
+    path: /historique-commandes
+    controller: App\Controller\RoleController::historiqueCommandes
+    methods: GET
+

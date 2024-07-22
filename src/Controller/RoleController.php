@@ -3,15 +3,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
+use App\Repository\CommandeRepository;
 use App\Entity\Produit;
 use App\Form\ProduitType;
-use App\Entity\Fournisseur;
+//use App\Entity\Fournisseur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Connection;
 
 #[Route('/Role')]
 class RoleController extends AbstractController
@@ -119,6 +122,45 @@ class RoleController extends AbstractController
         $this->addFlash('success', 'Le plat a été supprimé avec succès.');
 
         return $this->redirectToRoute('Role_dashboard');
+    }
+
+
+    #[Route('/historique-commandes', name: 'app_historique_commandes')]
+    public function historiqueCommandes(Request $request, CommandeRepository $commandeRepository): Response
+    {
+        // Filtrage et tri des commandes si nécessaire
+        $dateCommande = $request->query->get('dateCommande');
+        $client = $request->query->get('client');
+        $sort = $request->query->get('sort', 'id');
+        $direction = $request->query->get('direction', 'asc');
+
+        // Créez le QueryBuilder
+        $qb = $commandeRepository->createQueryBuilder('c')
+            ->leftJoin('c.client', 'cl')
+            ->addSelect('cl');
+
+        if ($dateCommande) {
+            $qb->andWhere('c.dateDebutCommande = :dateCommande')
+               ->setParameter('dateCommande', new \DateTime($dateCommande));
+        }
+
+        if ($client) {
+            $qb->andWhere('cl.nom LIKE :client')
+               ->setParameter('client', '%' . $client . '%');
+        }
+
+        if ($sort === 'nom_client') {
+            $qb->orderBy('cl.nom', $direction);
+        } else {
+            $qb->orderBy('c.' . $sort, $direction);
+        }
+
+        $commandes = $qb->getQuery()->getResult();
+
+        return $this->render('Role/historique.html.twig', [
+            'commandes' => $commandes,
+            'utilisateur' => $this->getUser(),
+        ]);
     }
 }
 

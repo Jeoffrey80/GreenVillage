@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+{% block stylesheets %}
+<style>
+        .beige-section {
+            background-color: #f5f5dc; /* Couleur de fond beige */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+</style>
+{% endblock %}
 {% block body %}
-
+<div class="beige-section">
     <h1>Politique de confidentialité</h1>
 
     <h2>A. Collecte de l’information</h2>
@@ -46,5 +56,6 @@
         <li>Définir des directives relatives au sort de vos données personnelles après votre décès (conformément à l’art. 40-1 de la Loi Informatique et Libertés).</li>
     </ul>
     <p>Si vous considérez que le traitement de vos données personnelles ne respecte pas vos droits, vous pouvez adresser une réclamation auprès de la CNIL, autorité de contrôle dont la mission est de veiller en France au respect de la réglementation applicable aux traitements de données à caractère personnel : <a href="https://www.cnil.fr">www.cnil.fr</a></p>
+</div>
 {% endblock %}
 {% endblock %}

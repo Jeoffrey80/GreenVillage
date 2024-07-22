@@ -3,14 +3,14 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-    
+
 home:
     path: /
     controller: App\Controller\HomeController::index
 
 app_cgu:
-    path: '/cgu'
-    controller: 'App\Controller\CguController::cgu'
+    path: /cgu
+    controller: App\Controller\CguController::cgu
 
 app_politique:
     path: /politique
@@ -21,12 +21,12 @@ app_mentions:
     controller: App\Controller\PoliMentionController::mentions
 
 app_registration:
-    path: '/register'
-    controller: 'App\Controller\RegistrationController::register'
+    path: /register
+    controller: App\Controller\RegistrationController::register
 
 Role_dashboard:
-    path: '/Role/dashboard'
-    controller: 'App\Controller\RoleController::dashboard'
+    path: /Role/dashboard
+    controller: App\Controller\RoleController::dashboard
     methods: ['GET', 'POST']
 
 product_detail:
@@ -66,3 +66,12 @@ app_historique_commandes:
     controller: App\Controller\RoleController::historiqueCommandes
     methods: GET
 
+app_reset:
+    path: /reset
+    controller: App\Controller\ResetController::index
+    methods: [GET, POST]
+
+change_password:
+    path: /change/{token}
+    controller: App\Controller\ResetController::change_password
+    methods: [GET, POST]

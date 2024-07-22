@@ -4,7 +4,6 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,10 +16,19 @@ class ResetEmailType extends AbstractType
         $builder
             ->add('from', TextType::class, [
                 "constraints" => [
-                    new Email(["message"=>"Vous devez saisir une adresse email !"])
+                    new Email(["message" => "Vous devez saisir une adresse email !"])
+                ],
+                "label" => "Email",
+                "attr" => [
+                    "placeholder" => "Entrez votre email",
+                    "class" => "form-control"
                 ]
             ])
-            ->add('Envoyer', SubmitType::class)
+            ->add('Envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ])
         ;
     }
 

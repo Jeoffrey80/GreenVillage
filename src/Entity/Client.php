@@ -17,7 +17,6 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-
 #[ApiResource(operations: [
     new Get(),  
     new Put(),
@@ -26,7 +25,6 @@ use ApiPlatform\Metadata\ApiResource;
     new GetCollection(),
     new Post(),
 ])]
-
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -44,10 +42,10 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $adresse_mail = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse = null; // Remplace adresse_livraison et adresse_facturation
+    private ?string $adresse = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $telephone = null; // Nouvel attribut pour le numéro de téléphone
+    private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
@@ -63,6 +61,9 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?string $reduc_pro = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null; // Ajoutez le champ token
 
     #[ORM\ManyToOne(targetEntity: Commercial::class, inversedBy: 'clients')]
     #[ORM\JoinColumn(nullable: false)]
@@ -275,6 +276,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
                 $commande->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

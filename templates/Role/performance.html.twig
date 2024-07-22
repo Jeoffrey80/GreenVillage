@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chiffre d'Affaires 2024{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Style pour la carte */
+        .card {
+            margin-bottom: 20px;
+        }
+        /* Style pour l'en-tête de la carte */
+        .card-header {
+            background-color: #000;
+            color: #fff;
+        }
+        /* Style pour le tableau à l'intérieur du corps de la carte */
+        .card-body table {
+            margin-bottom: 0;
+        }
+        /* Style pour les paragraphes dans le corps de la carte */
+        .card-body p {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <div class="row">
+            {# Première colonne pour les chiffres d'affaires par mois #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Chiffre d'Affaires par Mois - 2024</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Mois</th>
+                                    <th>Chiffre d'Affaires (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in chiffreAffairesResults %}
+                                    <tr>
+                                        <td>{{ result.Mois }}</td>
+                                        <td>{{ result.Chiffre_d_affaires | number_format(2, ',', ' ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {# Deuxième colonne pour les produits les plus commandés #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Top 10 des Produits les plus Commandés - 2024</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Nom du Produit</th>
+                                    <th>Quantité Commandée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for produit in produitsCommandesResults %}
+                                    <tr>
+                                        <td>{{ produit.Id_Produit }}</td>
+                                        <td>{{ produit.Nom_produit }}</td>
+                                        <td>{{ produit.Quantité_commandée }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {# Troisième colonne pour les produits avec la meilleure marge #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Top 10 des Produits avec la Meilleure Marge - 2024</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Nom du Produit</th>
+                                    <th>Marge (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for produit in produitsMargeResults %}
+                                    <tr>
+                                        <td>{{ produit.Id_Produit }}</td>
+                                        <td>{{ produit.Nom_produit }}</td>
+                                        <td>{{ produit.Marge | number_format(2, ',', ' ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {# Quatrième colonne pour les clients par nombre de commandes #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Top 10 des Clients par Nombre de Commandes - 2024</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Nombre de Commandes</th>
+                                    <th>Chiffre d'Affaires (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for client in clientsCommandesResults %}
+                                    <tr>
+                                        <td>{{ client.Client_id }}</td>
+                                        <td>{{ client.Nom_client }}</td>
+                                        <td>{{ client.Prenom_client }}</td>
+                                        <td>{{ client.Nombre_commandes }}</td>
+                                        <td>{{ client.Chiffre_d_affaires | number_format(2, ',', ' ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {# Cinquième colonne pour le chiffre d'affaires par type de client #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Chiffre d'Affaires par Type de Client - 2024</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Type de Client</th>
+                                    <th>Chiffre d'Affaires (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for type in typeClientChiffreAffairesResults %}
+                                    <tr>
+                                        <td>{{ type.type_client }}</td>
+                                        <td>{{ type.Chiffre_d_affaires | number_format(2, ',', ' ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {# Sixième colonne pour le nombre de commandes en cours de livraison #}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Nombre de Commandes en Cours de Livraison</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ commandesEnCoursResults.Nombre_commandes_en_cours_de_livraison }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

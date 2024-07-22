@@ -1,4 +1,3 @@
-{# templates/Role/dashboard.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}
@@ -21,7 +20,10 @@
     <div class="container mt-5 beige-section">
         <h1>Tableau de bord du Chef</h1>
 
-        <a href="{{ path('app_historique_commandes') }}" class="btn btn-info mb-3">Voir l'historique des commandes</a>
+        <div class="mb-3">
+            <a href="{{ path('app_historique_commandes') }}" class="btn btn-info me-2">Voir l'historique des commandes</a>
+            <a href="{{ path('performance_dashboard') }}" class="btn btn-success">Voir le tableau de bord des performances</a>
+        </div>
 
         {# Formulaire pour ajouter un nouveau produit #}
         <div class="card my-5">

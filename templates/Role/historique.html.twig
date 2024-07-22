@@ -17,6 +17,7 @@
 {% endblock %}
 {% block body %}
     <div class="container mt-5 beige-section">
+    
         <h1>Historique des Commandes</h1>
         <table class="table table-striped">
             <thead>
@@ -44,5 +45,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{{ path('Role_dashboard') }}" class="btn btn-primary me-2">Dashboard</a>
     </div>
 {% endblock %}

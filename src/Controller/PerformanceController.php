@@ -117,12 +117,12 @@ class PerformanceController extends AbstractController
         $typeClientChiffreAffairesResults = $connection->fetchAllAssociative($typeClientChiffreAffairesSql);
 
         // Requête SQL pour récupérer le nombre de commandes en cours de livraison pour l'année 2024
-        $commandesEnCoursSql = "
+            $commandesEnCoursSql = "
             SELECT 
                 COUNT(*) AS Nombre_commandes_en_cours_de_livraison
             FROM 
                 commande c
-            INNER JOIN 
+            LEFT JOIN 
                 livraison l ON c.id = l.commande_id
             WHERE 
                 l.date_reception IS NULL

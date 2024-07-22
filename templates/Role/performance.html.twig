@@ -5,38 +5,85 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        /* Style pour la carte */
+        /* Style global de la carte */
         .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            background: #fff;
+            border: 1px solid #e3e3e3;
         }
         /* Style pour l'en-tête de la carte */
         .card-header {
-            background-color: #000;
-            color: #fff;
-        }
-        /* Style pour le tableau à l'intérieur du corps de la carte */
-        .card-body table {
-            margin-bottom: 0;
-        }
-        /* Style pour les paragraphes dans le corps de la carte */
-        .card-body p {
-            font-size: 1.25rem;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
             font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        /* Style pour le corps de la carte */
+        .card-body {
+            padding: 15px;
+        }
+        /* Style pour le tableau */
+        .card-body table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .card-body table thead {
+            background-color: #f1f1f1;
+        }
+        .card-body table th, .card-body table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .card-body table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .card-body table th {
+            font-weight: bold;
+            color: #555;
+        }
+        /* Style pour le bouton de retour au dashboard */
+        .btn-dashboard {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px; /* Ajouté pour créer un espace au-dessus de la première colonne */
+        }
+        .btn-dashboard:hover {
+            background-color: #218838;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .btn-dashboard:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.5);
         }
     </style>
 {% endblock %}
 
 {% block body %}
     <div class="container py-4">
+        <a href="{{ path('Role_dashboard') }}" class="btn btn-primary me-2">Dashboard</a>
         <div class="row">
             {# Première colonne pour les chiffres d'affaires par mois #}
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Chiffre d'Affaires par Mois - 2024</h2>
+                        Chiffre d'Affaires par Mois - 2024
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Mois</th>
@@ -60,10 +107,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Top 10 des Produits les plus Commandés - 2024</h2>
+                        Top 10 des Produits les plus Commandés - 2024
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Produit</th>
@@ -91,10 +138,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Top 10 des Produits avec la Meilleure Marge - 2024</h2>
+                        Top 10 des Produits avec la Meilleure Marge - 2024
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Produit</th>
@@ -120,10 +167,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Top 10 des Clients par Nombre de Commandes - 2024</h2>
+                        Top 10 des Clients par Nombre de Commandes - 2024
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Client</th>
@@ -155,10 +202,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Chiffre d'Affaires par Type de Client - 2024</h2>
+                        Chiffre d'Affaires par Type de Client - 2024
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Type de Client</th>
@@ -182,7 +229,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Nombre de Commandes en Cours de Livraison</h2>
+                        Nombre de Commandes en Cours de Livraison
                     </div>
                     <div class="card-body">
                         <p>{{ commandesEnCoursResults.Nombre_commandes_en_cours_de_livraison }}</p>

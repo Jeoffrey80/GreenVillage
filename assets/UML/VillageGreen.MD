@@ -191,7 +191,7 @@ Le diagramme d'activités décrit le processus de commande dans un site de comme
 
 Ce diagramme de classe donne une vue d'ensemble structurée des principales entités et de leurs relations dans un système de gestion de commerce électronique, facilitant ainsi la compréhension et le développement du système.
 
-![Diagramme de Classes](/assets/UML/Classes.puml)
+![Diagramme de Classes](/assets/UML/GVClasses.png)
 
 # Explication
 

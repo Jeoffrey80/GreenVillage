@@ -122,7 +122,7 @@ Le diagramme d'activités décrit le processus de commande dans un site de comme
 - **Scénario Alternatif :** Si le stock est insuffisant, le client est immédiatement notifié, ce qui évite toute frustration liée à des commandes impossibles à honorer.
 - **Décision Critique :** La vérification du stock est une décision critique qui détermine le chemin que prendra le reste du processus de commande.
 
-![Diagramme d'Activité](/asset/UML/GVActivites.png)
+![Diagramme d'Activité](/assets/UML/GVActivites.png)
 
 # Diagramme de Classes (Entités)
 

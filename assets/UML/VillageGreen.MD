@@ -27,7 +27,7 @@ Le diagramme de cas d'utilisation décrit les interactions entre les différents
 **Système de paiement :**  
 - Traiter paiement
 
-![Diagramme de Cas d'Utilisation](/asset/UML/GVCasUtilisation.png)
+![Diagramme de Cas d'Utilisation](/assets/UML/GVCasUtilisation.png)
 
 # Diagramme de Séquence
 
@@ -66,7 +66,7 @@ Le diagramme de séquence montre les interactions entre un client, le site web e
 10. **Système de Gestion -> Client : Envoyer facture**  
     Le système de gestion envoie la facture générée au client, généralement par email.
 
-![Diagramme de Séquence](/asset/UML/GVSequence.png)
+![Diagramme de Séquence](/assets/UML/GVSequence.png)
 
 # Diagramme d'Activités
 
@@ -122,7 +122,7 @@ Le diagramme d'activités décrit le processus de commande dans un site de comme
 - **Scénario Alternatif :** Si le stock est insuffisant, le client est immédiatement notifié, ce qui évite toute frustration liée à des commandes impossibles à honorer.
 - **Décision Critique :** La vérification du stock est une décision critique qui détermine le chemin que prendra le reste du processus de commande.
 
-![Diagramme d'Activité](/asset/UML/GVActivites.png)
+![Diagramme d'Activité](/assets/UML/GVActivites.png)
 
 # Diagramme de Classes (Entités)
 
@@ -191,7 +191,7 @@ Le diagramme d'activités décrit le processus de commande dans un site de comme
 
 Ce diagramme de classe donne une vue d'ensemble structurée des principales entités et de leurs relations dans un système de gestion de commerce électronique, facilitant ainsi la compréhension et le développement du système.
 
-![Diagramme de Classes](/asset/UML/GVClasses.png)
+![Diagramme de Classes](/assets/UML/Classes.puml)
 
 # Explication
 

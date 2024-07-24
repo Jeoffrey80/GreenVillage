@@ -1,17 +1,37 @@
 @startuml
 actor Client
-participant "Site Web E-Commerce" as ECommerce
-participant "Système de Gestion" as Gestion
-participant "Banque" as Banque
 
-Client -> ECommerce: Valider le panier
-ECommerce -> Gestion: Créer commande
-Gestion -> Gestion: Vérifier stock
-Gestion -> ECommerce: Confirmer commande
-ECommerce -> Gestion: Confirmer paiement
-Gestion -> Banque: Demande de paiement
-Banque -> Gestion: Confirmer paiement
-Gestion -> ECommerce: Créer facture
-ECommerce -> Client: Afficher confirmation
-Gestion -> Client: Envoyer facture
+participant "Interface Utilisateur" as UI
+participant "Service de Commande" as SC
+participant "Service de Produit" as SP
+participant "Service de Livraison" as SL
+database "Base de Données" as DB
+
+Client -> UI : Se connecter
+UI -> DB : Vérifier les informations d'identification
+DB --> UI : Informations d'identification valides
+
+Client -> UI : Rechercher un produit
+UI -> SP : Obtenir les détails du produit
+SP -> DB : SELECT * FROM produit WHERE nom=?
+DB --> SP : Détails du produit
+SP --> UI : Détails du produit
+
+Client -> UI : Ajouter le produit au panier
+UI -> SC : Ajouter le produit au panier
+SC -> DB : INSERT INTO panier (id_client, id_produit, quantite)
+DB --> SC : Confirmer l'ajout
+
+Client -> UI : Passer la commande
+UI -> SC : Créer une commande
+SC -> DB : INSERT INTO commande (id_client, montant_tot, statut)
+DB --> SC : Confirmer la commande
+SC -> DB : INSERT INTO commande_produit (id_commande, id_produit, quantite)
+DB --> SC : Confirmer l'ajout des produits à la commande
+
+SC -> SL : Préparer la livraison
+SL -> DB : INSERT INTO livraison (id_commande, date_envoi)
+DB --> SL : Confirmer la livraison
+
+UI --> Client : Confirmation de la commande et de la livraison
 @enduml

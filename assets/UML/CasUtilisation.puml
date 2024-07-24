@@ -1,36 +1,29 @@
 @startuml
 actor Client
-actor Administrateur
-actor "Système de paiement" as SystemePaiement
+actor Admin
+actor Commercial
 
-usecase "Consulter le catalogue" as UC1
-usecase "Ajouter produit au panier" as UC2
-usecase "Valider le panier" as UC3
-usecase "Créer commande" as UC4
-usecase "Consulter commandes" as UC5
-usecase "Modifier informations personnelles" as UC6
+usecase "Se connecter" as UC1
+usecase "Rechercher produit" as UC2
+usecase "Ajouter au panier" as UC3
+usecase "Passer commande" as UC4
+usecase "Gérer les commandes" as UC5
+usecase "Gérer les produits" as UC6
+usecase "Gérer les clients" as UC7
+usecase "Gérer les fournisseurs" as UC8
+usecase "Gérer les erreurs du site" as UC9
+usecase "Gérer le panneau d'administration" as UC10
 
-usecase "Gérer produits" as UC7
-usecase "Gérer catégories et sous-catégories" as UC8
-usecase "Consulter toutes les commandes" as UC9
-usecase "Consulter toutes les factures" as UC10
+Client -- UC1
+Client -- UC2
+Client -- UC3
+Client -- UC4
 
-usecase "Traiter paiement" as UC11
+Commercial -- UC5
+Commercial -- UC6
+Commercial -- UC7
+Commercial -- UC8
 
-Client --> UC1
-Client --> UC2
-Client --> UC3
-Client --> UC4
-Client --> UC5
-Client --> UC6
-
-Administrateur --> UC7
-Administrateur --> UC8
-Administrateur --> UC9
-Administrateur --> UC10
-
-UC4 --> UC11 : include
-
-SystemePaiement --> UC11
+Admin -- UC9
+Admin -- UC10
 @enduml
-composer require --dev orm-fixtures

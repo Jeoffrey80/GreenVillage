@@ -1,16 +1,26 @@
 @startuml
 start
-:Consulter le catalogue;
-:Ajouter produit au panier;
-:Valider le panier;
-:Créer commande;
-:Confirmer stock;
-if (Stock suffisant?) then (oui)
-    :Confirmer paiement;
-    :Créer facture;
-    :Envoyer confirmation et facture;
+
+:Se connecter;
+:Rechercher produit;
+:Afficher détails produit;
+
+if (Produit trouvé ?) then (oui)
+  :Ajouter produit au panier;
 else (non)
-    :Notifier client;
+  :Afficher message d'erreur;
+  stop
 endif
+
+:Passer commande;
+
+:Enregistrer commande;
+:Enregistrer produits de la commande;
+
+:Préparer livraison;
+:Enregistrer livraison;
+
+:Envoyer confirmation au client;
+
 stop
 @enduml

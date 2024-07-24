@@ -1,51 +1,72 @@
 @startuml
-class Client {
-    - clientId : int
-    - nom : String
-    - prenom : String
-    - adresse : String
-    - password : String
-    - typeClient : bool
-    - coefficient : float
+
+class Categorie {
+  int id
+  int id_parent
+  String nom
+  String image
 }
 
-class Produit {
-    - produitId : int
-    - libelle : String
-    - description : String
-    - prixAchat : float
-    - photo : String
-    - rubrique : String
-    - sousRubrique : String
+class Client {
+  int id
+  int id_commercial
+  String nom
+  String prenom
+  String adresse_mail
+  String adresse
+  String telephone
+  String role
+  String mot_de_passe
+  boolean type_client
+  double coefficient
+  double reduc_pro
+  String jeton
 }
 
 class Commande {
-    - commandeId : int
-    - dateCommande : Date
-    - montantTotal : decimal
-    - statut : String
-    - clientId : int
+  int id
+  int id_client
+  Date date_debut_commande
+  String nom_commande
+  String statut
+  double montant_tot
+  Date date_emission
+  double montant
+  String adresse_livraison
+  String adresse_facturation
 }
 
-class Facture {
-    - factureId : int
-    - commandeId : int
-    - montant : decimal
-    - dateEmission : Date
+class Commande_Produit {
+  int id
+  int id_commande
+  int id_produit
+  int quantite
 }
 
-class Categorie {
-    - categorieId : int
-    - produits : List<Produit>
+class Commercial {
+  int id
+  String nom
+  String role
+  String adresse_mail
+  String mot_de_passe
 }
 
-class SsCategorie{
-    -sscategorieId : int
-    -produits : List<Produit>
+class Fournisseur {
+  int id
+  String nom
+  String ref_fournisseur
 }
 
-Client "1" --> "0..*" Commande
-Commande "1" --> "1" Facture
-Catalogue "1" --> "0..*" Produit
-SsCategorie "1"-->"0..*"Categorie
-@enduml
+class Livraison {
+  int id
+  int id_commande
+  Date date_envoi
+  Date date_reception
+}
+
+class Messenger_Messages {
+  long id
+  String corps
+  String en_tetes
+  String nom_file_attente
+  Date

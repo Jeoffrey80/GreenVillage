@@ -70,3 +70,4 @@ class Messenger_Messages {
   String en_tetes
   String nom_file_attente
   Date
+}
